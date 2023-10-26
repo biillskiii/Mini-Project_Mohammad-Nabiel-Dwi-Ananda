@@ -85,14 +85,17 @@ const products = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     incrementItem: (state, action) => {
-      state.cart = state.cart
-        ?.filter((products) => products.id === action.payload)
-        .map((products) => {
-          const currentVal = products.qty;
-          products.qty = currentVal + 1;
-          return products;
-        });
+      state.cart = state.cart.map((product) => {
+        if (product.id === action.payload) {
+          if (product.qty < 99) { 
+            product.qty += 1;
+          }
+        }
+        return product;
+      });
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
+    
     decrementItem: (state, action) => {
       state.cart = state.cart.map((product) => {
         if (product.id === action.payload) {

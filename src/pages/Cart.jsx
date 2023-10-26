@@ -11,6 +11,7 @@ import {
   getTotals,
 } from "../services/product";
 import Swal from "sweetalert2";
+
 function Cart() {
   const cartItems = useSelector((state) => state.products.cart);
   const [selectedProducts, setSelectedProducts] = useState({});
@@ -46,21 +47,30 @@ function Cart() {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce(
-      (total, product) => total + product.qty * product.price,
-      0
-    );
+    // Filter cartItems based on selectedProducts and calculate the total
+    return cartItems
+      .filter((product) => selectedProducts[product.id])
+      .reduce((total, product) => total + product.qty * product.price, 0);
   };
 
   const total = calculateTotal();
 
   const handleCheckout = () => {
+    // Filter the cart to exclude products that are not selected
     const itemsToCheckout = cartItems.filter(
       (product) => !selectedProducts[product.id]
     );
+
+    // Perform the checkout with the filtered items
+    // ... (your existing checkout logic)
+
+    // Optionally, clear the selected products
+    setSelectedProducts({});
     dispatch(updateCart(itemsToCheckout));
     dispatch(getTotals());
     localStorage.setItem("cart", JSON.stringify(itemsToCheckout));
+
+    // Show a confirmation message
     Swal.fire("Checkout Berhasil!");
     navigate("/invoice");
   };
@@ -75,21 +85,24 @@ function Cart() {
             <div className="md:w-3/4">
               <div className="bg-white rounded-lg shadow-md p-6 mb-4">
                 <table className="w-full">
-                  <thead className="text-center">
+                  <thead className="text-center gap-x-4">
                     <tr>
-                      <th className="text-left font-semibold">Product</th>
-                      <th className="text-left font-semibold">Price</th>
-                      <th className="text-left font-semibold">Quantity</th>
-                      <th className="text-left font-semibold">Total</th>
-                      <th className="text-left font-semibold">Actions</th>
+                      <th className="text-center font-semibold">Product</th>
+                      <th className="text-center font-semibold">Price</th>
+                      <th className="text-center font-semibold">Quantity</th>
+                      {/* <th className="text-center font-semibold">Total</th> */}
+                      <th className="text-center font-semibold">Actions</th>
+                      <th className="text-center font-semibold">Checkout</th>
                     </tr>
                   </thead>
                   {cartItems.length === 0 ? (
-                    <p className="mt-5 font-bold opacity-50 flex justify-center text-center">Tidak ada produk di keranjang</p>
+                    <p className="mt-5 font-bold opacity-50 flex justify-center text-center">
+                      Tidak ada produk di keranjang
+                    </p>
                   ) : (
                     <tbody>
                       {cartItems.map((product) => (
-                        <tr key={product.id}>
+                        <tr key={product.id} className="text-center">
                           <td className="py-4">
                             <div className="flex items-center">
                               <img
@@ -103,7 +116,7 @@ function Cart() {
                             </div>
                           </td>
                           <td className="py-4">${product.price}</td>
-                          <td className="py-4">
+                          <td className=" py-4 ">
                             <div className="flex items-center">
                               <button
                                 className="border rounded-md py-2 px-4 mr-2"
@@ -122,9 +135,7 @@ function Cart() {
                               </button>
                             </div>
                           </td>
-                          <td className="py-4">
-                            ${product.qty * product.price}
-                          </td>
+                          {/* <td className="py-4">${product.qty * product.price}</td> */}
                           <td className="py-4">
                             <button
                               className="text-red-500"
@@ -132,6 +143,13 @@ function Cart() {
                             >
                               <BsFillTrash3Fill />
                             </button>
+                          </td>
+                          <td className="py-4">
+                            <input
+                              type="checkbox"
+                              onChange={() => handleCheckboxChange(product.id)}
+                              checked={selectedProducts[product.id] || false}
+                            />
                           </td>
                         </tr>
                       ))}

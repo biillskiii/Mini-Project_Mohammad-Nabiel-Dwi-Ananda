@@ -23,12 +23,14 @@ const Invoice = () => {
       <Navbar />
       <div className="w-8/12 mx-auto mt-32 bg-white shadow-xl">
         <div className="p-10">
-            <div className="text-slate-700">
-              <p className="text-xl font-extrabold uppercase font-body text-center">
-                Gadget Store
-              </p>
-              <p className="text-lg font-semibold font-body text-center">Invoice</p>
-            </div>
+          <div className="text-slate-700">
+            <p className="text-xl font-extrabold uppercase font-body text-center">
+              Gadget Store
+            </p>
+            <p className="text-lg font-semibold font-body text-center">
+              Invoice
+            </p>
+          </div>
 
           <div className="p-9">
             <div className="flex items-center flex-col mx-0">
@@ -56,9 +58,12 @@ const Invoice = () => {
                         <div className="font-medium text-slate-700">
                           {item.title}
                         </div>
-                        <div className="mt-0.5 text-slate-500 sm:hidden">
-                          {item.qty} unit at ${item.price.toFixed(2)}
-                        </div>
+                        <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
+                          $
+                          {parseFloat(
+                            (item.qty * item.price).toFixed(2)
+                          ).toFixed(2)}
+                        </td>
                       </td>
                       <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
                         ${(item.qty * item.price).toFixed(2)}
