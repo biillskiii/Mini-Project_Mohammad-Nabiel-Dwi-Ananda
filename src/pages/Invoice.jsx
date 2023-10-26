@@ -23,7 +23,7 @@ const Invoice = () => {
       <Navbar />
       <div className="w-8/12 mx-auto mt-32 bg-white shadow-xl">
         <div className="p-10">
-            <div claclassNamess="text-slate-700">
+            <div className="text-slate-700">
               <p className="text-xl font-extrabold uppercase font-body text-center">
                 Gadget Store
               </p>
@@ -60,7 +60,7 @@ const Invoice = () => {
                           {item.qty} unit at ${item.price.toFixed(2)}
                         </div>
                       </td>
-                      <td class="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
+                      <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
                         ${(item.qty * item.price).toFixed(2)}
                       </td>
                     </tr>

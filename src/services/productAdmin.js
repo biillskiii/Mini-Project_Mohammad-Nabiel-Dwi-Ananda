@@ -1,58 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import axios from "axios";
 export const getProducts = createAsyncThunk("getProducts", async (arg) => {
-  const result = await fetch(
-    "https://6527d572931d71583df17723.mockapi.io/products"
-  ).then((res) => res.json());
-  return result;
+  const response = await axios.get("https://6527d572931d71583df17723.mockapi.io/products");
+  return response.data;
 });
 
-export const createProduct = createAsyncThunk(
-  "createProduct",
-  async (productData) => {
-    const result = await fetch(
-      "https://6527d572931d71583df17723.mockapi.io/products",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      }
-    ).then((res) => res.json());
-    return result;
-  }
-);
+export const createProduct = createAsyncThunk("createProduct", async (productData) => {
+  const response = await axios.post("https://6527d572931d71583df17723.mockapi.io/products", productData);
+  return response.data;
+});
 
-export const updateProduct = createAsyncThunk(
-  "updateProduct",
-  async (productData) => {
-    const result = await fetch(
-      `https://6527d572931d71583df17723.mockapi.io/products/${productData.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      }
-    ).then((res) => res.json());
-    return result;
-  }
-);
+export const updateProduct = createAsyncThunk("updateProduct", async (productData) => {
+  const response = await axios.put(`https://6527d572931d71583df17723.mockapi.io/products/${productData.id}`, productData);
+  return response.data;
+});
 
-export const deleteProduct = createAsyncThunk(
-  "deleteProduct",
-  async (productId) => {
-    const result = await fetch(
-      `https://6527d572931d71583df17723.mockapi.io/products/${productId}`,
-      {
-        method: "DELETE",
-      }
-    ).then((res) => res.json());
-    return result;
-  }
-);
+export const deleteProduct = createAsyncThunk("deleteProduct", async (productId) => {
+  const response = await axios.delete(`https://6527d572931d71583df17723.mockapi.io/products/${productId}`);
+  return response.data;
+});
 
 const products = createSlice({
   name: "productAdmin",

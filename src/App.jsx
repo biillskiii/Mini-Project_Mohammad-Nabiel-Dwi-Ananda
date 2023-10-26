@@ -6,23 +6,23 @@ import Chat from "../src/pages/Chat";
 import Dashboard from "../src/Admin/Dashboard";
 import Cart from "../src/pages/Cart";
 import Invoice from "./pages/Invoice";
-import Loading from "../src/components/Preloader";
+// import Loading from "../src/components/Preloader";
 
 export default function Home() {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 2000);
+  // }, []);
 
   return (
     <BrowserRouter>
-      {isLoading ? ( 
+      {/* {isLoading ? ( 
         <Loading />
-      ) : (
+      ) : ( */}
         <Routes>
           <Route path="/chatbot" element={<Chat />} />
           <Route path="/login" element={<Login />} />
@@ -36,7 +36,7 @@ export default function Home() {
             }
           />
         </Routes>
-      )}
+      {/* )} */}
     </BrowserRouter>
   );
 }

@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import Logo from "../assets/openai.png";
 import Navbar from "../components/Navbar";
 import { BsFillSendFill } from "react-icons/bs";
+import Loading from "../components/Preloader";
 function Chat() {
   const configuration = new Configuration({
     apiKey: "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",
@@ -64,9 +65,7 @@ function Chat() {
           />
         </div>
         {loading && (
-          <div className="mt-4 font-semibold text-orange-500 px-5">
-            Mohon tunggu, pertanyaan sedang dimuat...
-          </div>
+          <Loading/>
         )}
       </div>
     </>

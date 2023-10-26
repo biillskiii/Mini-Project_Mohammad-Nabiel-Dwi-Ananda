@@ -5,10 +5,9 @@ import { RxAvatar } from "react-icons/rx";
 import { RiCustomerServiceFill } from "react-icons/ri";
 // import SearchInput from "./Search";
 import { BiLogOut } from "react-icons/bi";
-import { BiSearchAlt2 } from "react-icons/bi";
-const Navbar = ({ onSearch, cartCount }) => {
+
+const Navbar = ({ onSearch }) => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -30,9 +29,6 @@ const Navbar = ({ onSearch, cartCount }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleSearch = () => {
-    onSearch(searchTerm);
-  };
   const handleCart = () => {
     navigate("/cart");
   };
@@ -54,20 +50,6 @@ const Navbar = ({ onSearch, cartCount }) => {
         </p>
       </div>
       <div className="flex flex-row gap-x-5">
-        <div className="relative">
-          <input
-            className="shadow-md rounded-md px-10 py-2 focus:outline-none w-60"
-            type="text"
-            placeholder="Cari barang..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <BiSearchAlt2
-            size={30}
-            className="absolute top-2 right-2 text-gray-400 cursor-pointer"
-            onClick={handleSearch}
-          />
-        </div>
         <p className="font-semibold text-sm flex items-center">
           <button
             onClick={() => navigate("/chatbot")}
@@ -81,13 +63,6 @@ const Navbar = ({ onSearch, cartCount }) => {
           <div className="flex items-center mr-10 gap-x-5">
             <a href="">
               <AiOutlineShoppingCart size={20} onClick={handleCart} />
-              {cartCount?.length ? (
-                <div className="absolute top-1 right-1 text-xs rounded-full bg-red-500 text-white px-1">
-                  {cartCount.length}
-                </div>
-              ) : (
-                <></>
-              )}
             </a>
             <button
               onClick={toggleDropdown}

@@ -9,11 +9,11 @@ import Category from "../components/Category";
 import CarrouselImage from "../assets/carrousel.png";
 import { MdDiscount } from "react-icons/md";
 import { addToCart } from "../services/product";
+import Loading from "../components/Preloader"; // Import the Loading component
 
-export default function Main() {
+export default function Home() {
   const dispatch = useDispatch();
   const newProduct = useSelector((state) => state.products.products);
-  console.log(newProduct);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,9 +21,12 @@ export default function Main() {
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
+  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts()).then(() => {
+      setIsLoading(false); // Set isLoading to false when the data is loaded
+    });
   }, [dispatch]);
 
   const handleSearch = (searchTerm) => {
@@ -63,6 +66,7 @@ export default function Main() {
   const sortedProducts = sortProducts(
     searchResults.length > 0 ? searchResults : newProduct
   );
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
@@ -74,11 +78,7 @@ export default function Main() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar
-        onSearch={handleSearch}
-        cartCount={cart.length}
-        handleOpen={() => setIsOpen(true)}
-      />
+      <Navbar cartCount={cart.length} handleOpen={() => setIsOpen(true)} />
       {isOpen && (
         <Cart
           product={cart}
@@ -101,55 +101,53 @@ export default function Main() {
       </div>
 
       <div className="mt-10">
-        <Category onSelectCategory={handleCategorySelect} onSort={handleSort} />
+        <Category onSelectCategory={handleCategorySelect} onSort={handleSort} onSearch={handleSearch} />
       </div>
 
       <div className="w-full h-40 flex flex-wrap justify-center gap-x-5 gap-y-10 mt-5">
-        {searchTerm === ""
-          ? sortedProducts.map((product, index) => {
-              if (
-                selectedCategory === "All" ||
-                product.category === selectedCategory
-              ) {
-                return (
-                  <Card
-                    key={index}
-                    id={product.id}
-                    title={product.title}
-                    rating={product.rating}
-                    category={product.category}
-                    price={product.price}
-                    images={product.images}
-                    isLoggedIn={isLoggedIn}
-                    onAddToCart={() => handleAddToCart(product)}
-                  />
-                );
-              } else {
-                return null;
-              }
-            })
-          : searchResults.map((product, index) => {
-              if (
-                selectedCategory === "All" ||
-                product.category === selectedCategory
-              ) {
-                return (
-                  <Card
-                    key={index}
-                    id={product.id}
-                    title={product.title}
-                    rating={product.rating}
-                    category={product.category}
-                    price={product.price}
-                    images={product.images}
-                    isLoggedIn={isLoggedIn}
-                    onAddToCart={() => handleAddToCart(product)}
-                  />
-                );
-              } else {
-                return null;
-              }
-            })}
+        {isLoading ? (
+          <Loading /> // Display loading component while data is loading
+        ) : searchTerm === "" ? (
+          sortedProducts.map((product, index) => {
+            if (selectedCategory === "All" || product.category === selectedCategory) {
+              return (
+                <Card
+                  key={index}
+                  id={product.id}
+                  title={product.title}
+                  rating={product.rating}
+                  category={product.category}
+                  price={product.price}
+                  images={product.images}
+                  isLoggedIn={isLoggedIn}
+                  onAddToCart={() => handleAddToCart(product)}
+                />
+              );
+            } else {
+              return null;
+            }
+          })
+        ) : (
+          sortedProducts.map((product, index) => {
+            if (selectedCategory === "All" || product.category === selectedCategory) {
+              return (
+                <Card
+                  key={index}
+                  id={product.id}
+                  title={product.title}
+                  rating={product.rating}
+                  category={product.category}
+                  price={product.price}
+                  images={product.images}
+                  isLoggedIn={isLoggedIn}
+                  onAddToCart={() => handleAddToCart(product)}
+                />
+              );
+            } else {
+              return null;
+            }
+          })
+        )}
         <Footer />
       </div>
     </div>
