@@ -30,7 +30,7 @@ export default function Home() {
           <Route path="/" element={<Main />} />
           <Route path="/invoice" element={<Invoice />} />
           <Route
-            path="/admin/*"
+            path="/admin/dashboard"
             element={
               isLoggedIn === "admin" ? <Dashboard /> : <Navigate to="/login" />
             }

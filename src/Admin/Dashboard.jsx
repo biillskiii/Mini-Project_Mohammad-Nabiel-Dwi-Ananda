@@ -110,7 +110,6 @@ const Admin = () => {
 
   const handleLogout = () => {
     localStorage.setItem("isLoggedIn", "false");
-    setIsLoggedIn(false);
     navigate("/login");
   };
 

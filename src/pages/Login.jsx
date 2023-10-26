@@ -23,13 +23,14 @@ function Login() {
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
         navigate("/admin/dashboard");
       } else if (
+        admin === null &&
         username === dummyAdmin.username &&
         password === dummyAdmin.password
       ) {
         localStorage.setItem("admin", JSON.stringify(dummyAdmin));
         localStorage.setItem("isLoggedIn", "admin");
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
-        navigate("/admin/*");
+        navigate("/admin/dashboard");
       } else {
         setErrorMessage("Invalid admin credentials");
       }
