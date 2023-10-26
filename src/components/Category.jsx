@@ -95,7 +95,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
       <div className="flex flex-row gap-x-5">
         <div className="relative">
           <input
-            className="border-2 rounded-md ml-5 px-3 py-2 focus:outline-none w-60"
+            className="border-2 border-black rounded-md ml-5 px-3 py-2 focus:outline-none w-60"
             type="text"
             placeholder="Cari barang..."
             value={searchTerm}

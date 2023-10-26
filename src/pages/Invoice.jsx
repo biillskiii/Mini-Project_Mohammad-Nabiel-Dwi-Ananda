@@ -47,6 +47,12 @@ const Invoice = () => {
                       scope="col"
                       className="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0"
                     >
+                      Quantity
+                    </th>
+                    <th
+                      scope="col"
+                      className="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0"
+                    >
                       Amount
                     </th>
                   </tr>
@@ -64,6 +70,9 @@ const Invoice = () => {
                             (item.qty * item.price).toFixed(2)
                           ).toFixed(2)}
                         </td>
+                      </td>
+                      <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
+                        {(item.qty)}
                       </td>
                       <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
                         ${(item.qty * item.price).toFixed(2)}
