@@ -8,7 +8,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import Loading from "../components/Preloader";
 function Chat() {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: import.meta.env.VITE_OPENAPI_KEY
   });
   const openai = new OpenAIApi(configuration);
   const [question, setQuestion] = useState("");
