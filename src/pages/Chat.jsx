@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OpenAIApi, Configuration } from "openai";
-import Button from "../components/Button";
 import Input from "../components/Input";
 import Logo from "../assets/openai.png";
 import Navbar from "../components/Navbar";
 import { BsFillSendFill } from "react-icons/bs";
 import { FaSpinner } from "react-icons/fa";
+import Button from "../components/ButtonBack";
 function Chat() {
   const configuration = new Configuration({
     apiKey: import.meta.env.VITE_OPENAPI_KEY,
@@ -14,6 +15,7 @@ function Chat() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleAsk = async () => {
     setLoading(true);
@@ -35,6 +37,7 @@ function Chat() {
   return (
     <>
       <Navbar />
+      <Button />
       <div className="w-full h-screen flex flex-col items-center mt-20">
         <img src={Logo} alt="" width={70} className="mb-10" />
         <p className="w-72 font-bold text-3xl mb-3 text-center">

@@ -11,7 +11,7 @@ import {
   getTotals,
 } from "../services/product";
 import Swal from "sweetalert2";
-
+import Button from "../components/ButtonBack";
 function Cart() {
   const cartItems = useSelector((state) => state.products.cart);
   const [selectedProducts, setSelectedProducts] = useState({});
@@ -56,21 +56,13 @@ function Cart() {
   const total = calculateTotal();
 
   const handleCheckout = () => {
-    // Filter the cart to exclude products that are not selected
     const itemsToCheckout = cartItems.filter(
       (product) => !selectedProducts[product.id]
     );
-
-    // Perform the checkout with the filtered items
-    // ... (your existing checkout logic)
-
-    // Optionally, clear the selected products
     setSelectedProducts({});
     dispatch(updateCart(itemsToCheckout));
     dispatch(getTotals());
     localStorage.setItem("cart", JSON.stringify(itemsToCheckout));
-
-    // Show a confirmation message
     Swal.fire("Checkout Berhasil!");
     navigate("/invoice");
   };
@@ -78,7 +70,8 @@ function Cart() {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-100 h-screen py-8">
+      <Button />
+      <div className="h-screen py-8">
         <div className="container mx-auto px-4">
           <h1 className="text-2xl font-semibold mb-4">Shopping Cart</h1>
           <div className="flex flex-col md:flex-row gap-4">

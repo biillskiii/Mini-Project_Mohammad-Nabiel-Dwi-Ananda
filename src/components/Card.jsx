@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Btn from "./Button";
+import Btn from "./ButtonBack";
 import {
   Button,
   Dialog,
