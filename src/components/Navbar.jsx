@@ -4,7 +4,8 @@ import { RiCustomerServiceFill } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { BiLogOut } from "react-icons/bi";
-
+import { RxHamburgerMenu } from "react-icons/rx";
+import { GrClose } from "react-icons/gr";
 const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +46,7 @@ const Navbar = () => {
   return (
     <div className="w-full bg-white shadow-md flex justify-between items-center p-4">
       <div>
-        <p className="font-bold text-green-600 text-xl ml-1 lg:ml-10">
+        <p className="font-bold text-green-600 text-xl lg:ml-5">
           <button onClick={() => navigate("/")}>GadgetStore</button>
         </p>
       </div>
@@ -101,33 +102,9 @@ const Navbar = () => {
           className="text-2xl text-gray-600 focus:outline-none"
         >
           {isDropdownOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+           <GrClose size={25} />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+           <RxHamburgerMenu  size={25}/>
           )}
         </button>
       </div>
