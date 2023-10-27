@@ -43,7 +43,6 @@ function Chat() {
         <p className="w-72 font-bold text-3xl mb-3 text-center">
           Q&A with <span className="text-green-600">GadgetStore</span>
         </p>
-        {/* <p className="mb-10">"QnA dengan tema Perang Dunia ke II"</p> */}
         <div className="bottom-52 w-72 mb-4 flex items-center">
           <Input
             type="text"
@@ -52,18 +51,18 @@ function Chat() {
             onChange={(e) => setQuestion(e.target.value)}
             className="w-full p-2 rounded-md shadow-md bg-white"
           />
-          <button
-            id="ask"
-            onClick={handleAsk}
-            className="absolute ml-56  hover:bg-green-900 focus:outline-none border-none w-16 h-8 mx-auto bg-green-600 rounded-md text-white font-semibold flex justify-center items-center text-lg shadow-xl"
-          >
-            {loading ? (
-              <FaSpinner size={15} className="animate-spinner gap-x-3" />
-            ) : (
-              <BsFillSendFill />
-            )}
-          </button>
         </div>
+        <button
+          id="ask"
+          onClick={handleAsk}
+          className="w-72 hover:bg-green-900 focus:outline-none border-none h-8 mx-auto bg-green-600 rounded-md text-white font-semibold flex justify-center items-center text-lg shadow-xl"
+        >
+          {loading ? (
+            <FaSpinner size={15} className="animate-spin gap-x-3" />
+          ) : (
+            <BsFillSendFill />
+          )}
+        </button>
         <div className="w-72 mt-4">
           <textarea
             value={`Jawaban: ${answer}`}
