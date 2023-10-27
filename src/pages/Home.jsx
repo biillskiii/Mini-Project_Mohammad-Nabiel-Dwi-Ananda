@@ -89,14 +89,14 @@ export default function Home() {
       )}
       <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-16">
         <img src={CarrouselImage} className="w-full" alt="Carousel" />
-        <div className="absolute w-full flex flex-col justify-center text-white gap-y-1 px-4 lg:ml-32">
-          <h1 className="text-base font-bold text-left mt-5  lg:text-start lg:text-4xl lg:mt-10">
+        <div className="absolute w-full flex flex-col justify-center text-white  px-4 lg:ml-32">
+          <h1 className="text-xl font-bold text-left mt-5  lg:text-start lg:text-4xl lg:mt-10">
             MACBOOK M1 PRO
           </h1>
-          <p className="text-base font-bold flex flex-row items-center gap-x-2  justify-start lg:justify-start">
+          <p className="text-xl font-semibold flex flex-row items-center gap-x-2  justify-start lg:justify-start">
             Discount 50% <MdDiscount size={15} />
           </p>
-          <p className="text-sm font-medium mb-5   text-start lg:text-start">
+          <p className="text-sm font-medium mb-5 text-start lg:text-start">
             00.00 WIB - 12.00 WIB
           </p>
         </div>

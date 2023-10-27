@@ -119,7 +119,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
         {isCategoryOpen && (
           <div
             ref={dropdownCategoryRef}
-            className="absolute right-52 lg:left-30 mt-14 w-32 flex flex-col bg-white rounded-md shadow-md"
+            className="absolute right-32 lg:mr-20 mt-14 w-32 flex flex-col bg-white rounded-md shadow-md"
           >
             <button
               className={`px-2 py-1 rounded-md text-sm font-semibold flex text-center  ${
