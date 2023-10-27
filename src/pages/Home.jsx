@@ -114,7 +114,7 @@ export default function Home() {
 
       <div className="w-full h-40 flex flex-wrap justify-center gap-x-5 gap-y-10 mt-5">
         {isLoading ? (
-          <Loading /> // Display loading component while data is loading
+          <Loading /> 
         ) : searchTerm === "" ? (
           sortedProducts.map((product, index) => {
             if (
@@ -150,7 +150,7 @@ export default function Home() {
                   id={product.id}
                   title={product.title}
                   rating={product.rating}
-                  category={product.category}
+                  category={product.categorye}
                   price={product.price}
                   images={product.images}
                   isLoggedIn={isLoggedIn}
