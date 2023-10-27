@@ -5,10 +5,10 @@ import Input from "../components/Input";
 import Logo from "../assets/openai.png";
 import Navbar from "../components/Navbar";
 import { BsFillSendFill } from "react-icons/bs";
-import Loading from "../components/Preloader";
+import { FaSpinner } from "react-icons/fa";
 function Chat() {
   const configuration = new Configuration({
-    apiKey: import.meta.env.VITE_OPENAPI_KEY
+    apiKey: import.meta.env.VITE_OPENAPI_KEY,
   });
   const openai = new OpenAIApi(configuration);
   const [question, setQuestion] = useState("");
@@ -41,7 +41,7 @@ function Chat() {
           Q&A with <span className="text-green-600">GadgetStore</span>
         </p>
         {/* <p className="mb-10">"QnA dengan tema Perang Dunia ke II"</p> */}
-        <div className="absolute bottom-52 w-72 mb-4">
+        <div className="bottom-52 w-72 mb-4 flex items-center">
           <Input
             type="text"
             placeholder="Tanya disini..."
@@ -49,14 +49,18 @@ function Chat() {
             onChange={(e) => setQuestion(e.target.value)}
             className="w-full p-2 rounded-md shadow-md bg-white"
           />
+          <button
+            id="ask"
+            onClick={handleAsk}
+            className="absolute ml-56  hover:bg-green-900 focus:outline-none border-none w-16 h-8 mx-auto bg-green-600 rounded-md text-white font-semibold flex justify-center items-center text-lg shadow-xl"
+          >
+            {loading ? (
+              <FaSpinner size={15} className="animate-spinner gap-x-3" />
+            ) : (
+              <BsFillSendFill />
+            )}
+          </button>
         </div>
-        <button
-          id="ask"
-          onClick={handleAsk}
-          className="absolute mb-1 mr-3 bottom-56 right-1/3 hover:bg-green-900 focus:outline-none border-none w-16 h-8 mx-auto bg-green-600 rounded-md text-white font-semibold flex justify-center items-center text-lg shadow-xl"
-        >
-          <BsFillSendFill/>
-        </button>
         <div className="w-72 mt-4">
           <textarea
             value={`Jawaban: ${answer}`}
@@ -64,9 +68,6 @@ function Chat() {
             className="w-full h-40 p-2 rounded-md shadow-md bg-white focus:outline-none"
           />
         </div>
-        {loading && (
-          <Loading/>
-        )}
       </div>
     </>
   );
