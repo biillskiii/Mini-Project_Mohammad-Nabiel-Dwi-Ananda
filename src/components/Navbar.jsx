@@ -56,6 +56,12 @@ const Navbar = ({ onSearch }) => {
             Contact Us
           </button>
         </p>
+        <button
+          onClick={() => navigate("/login")}
+          className="flex gap-x-2 border-2 px-3 py-2 border-black rounded-md ml-5 mr-12 font-semibold"
+        >
+          Login
+        </button>
         {isLoggedIn && (
           <div className="flex items-center ml-10 gap-x-5 mr-14">
             <a href="">
@@ -134,6 +140,12 @@ const Navbar = ({ onSearch }) => {
               <RiCustomerServiceFill size={20} className="mr-2" />
               Contact Us
             </li>
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full flex items-center justify-center bg-green-600 gap-x-2 px-2 py-1 rounded-md text-white font-semibold text-center"
+            >
+              Login
+            </button>
             {isLoggedIn && (
               <>
                 <li
