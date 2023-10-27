@@ -57,7 +57,7 @@ const Navbar = () => {
           </button>
         </p>
         {isLoggedIn && (
-          <div className="flex items-center ml-10 gap-x-5 mr-14">
+          <div className="flex items-center gap-x-5 mr-14">
             <a href="">
               <AiOutlineShoppingCart size={20} onClick={handleCart} />
             </a>
