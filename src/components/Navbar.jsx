@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <div className="w-full bg-white shadow-md flex justify-between items-center p-4">
       <div>
-        <p className="font-bold text-green-600 text-xl ml-10">
+        <p className="font-bold text-green-600 text-xl ml-1 lg:ml-10">
           <button onClick={() => navigate("/")}>GadgetStore</button>
         </p>
       </div>
