@@ -56,12 +56,6 @@ const Navbar = ({ onSearch }) => {
             Contact Us
           </button>
         </p>
-        <button
-          onClick={() => navigate("/login")}
-          className="flex gap-x-2 border-2 px-3 py-2 border-black rounded-md ml-5 mr-12 font-semibold"
-        >
-          Login
-        </button>
         {isLoggedIn && (
           <div className="flex items-center ml-10 gap-x-5 mr-14">
             <a href="">
@@ -74,16 +68,15 @@ const Navbar = ({ onSearch }) => {
               <RxAvatar size={30} /> Hello, {user}
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-4 mt-10 w-32 bg-white rounded-md shadow-md z-10">
+              <div className="absolute right-16 mt-40 w-32 bg-white rounded-md shadow-md z-10">
                 <ul className="py-2 text-base text-black gap-y-2 flex flex-col">
                   <li
                     className="font-semibold flex ml-5 gap-x-2 items-center"
-                    onClick={() => navigate("/profile")}
                   >
                     <RxAvatar size={20} /> Profile
                   </li>
                   <li
-                    className="font-semibold flex ml-5 gap-x-2 items-center"
+                    className="font-semibold flex ml-5 gap-x-2 items-center cursor-pointer"
                     onClick={openLogoutModal}
                   >
                     <BiLogOut size={20} /> Logout
@@ -92,6 +85,14 @@ const Navbar = ({ onSearch }) => {
               </div>
             )}
           </div>
+        )}
+        {!isLoggedIn && (
+          <button
+            onClick={() => navigate("/login")}
+            className="flex gap-x-2 border-2 px-3 py-2 border-black rounded-md ml-5 mr-12 font-semibold"
+          >
+            Login
+          </button>
         )}
       </div>
       <div className="lg:hidden flex items-center">
@@ -140,13 +141,7 @@ const Navbar = ({ onSearch }) => {
               <RiCustomerServiceFill size={20} className="mr-2" />
               Contact Us
             </li>
-            <button
-              onClick={() => navigate("/login")}
-              className="w-full flex items-center justify-center bg-green-600 gap-x-2 px-2 py-1 rounded-md text-white font-semibold text-center"
-            >
-              Login
-            </button>
-            {isLoggedIn && (
+            {isLoggedIn ? (
               <>
                 <li
                   className="px-4 py-2 flex items-center cursor-pointer"
@@ -155,22 +150,47 @@ const Navbar = ({ onSearch }) => {
                   <AiOutlineShoppingCart size={20} className="mr-2" />
                   Cart
                 </li>
-                <li
-                  onClick={toggleDropdown}
-                  className="px-4 py-2 font-semibold flex items-center gap-x-2 cursor-pointer"
-                >
+                <li className="px-4 py-2 font-semibold flex items-center gap-x-2 cursor-pointer">
                   <RxAvatar size={20} /> Hello, {user}
                 </li>
                 <li
                   className="px-4 py-2 flex items-center cursor-pointer"
-                  onClick={handleLogout}
+                  onClick={openLogoutModal}
                 >
                   <BiLogOut size={20} className="mr-2" />
                   Logout
                 </li>
               </>
+            ) : (
+              <li
+                onClick={() => navigate("/login")}
+                className="w-full flex items-center justify-center bg-green-600 gap-x-2 px-2 py-1 rounded-md text-white font-semibold text-center"
+              >
+                Login
+              </li>
             )}
           </ul>
+        </div>
+      )}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded-lg p-4">
+            <p className="font-semibold">Apakah Anda yakin ingin logout?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={closeLogoutModal}
+                className="px-4 py-2 text-gray-600 mr-4 outline-black"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-white bg-red-500 rounded-md font-semibold"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
