@@ -130,15 +130,15 @@ const Admin = () => {
         image: product.image,
       };
       const response = await dispatch(createProduct(newProduct));
-      console.log("Respons dari server:", response);
       console.log("Produk baru telah dibuat:", response.payload);
+
+      // Setel ulang input
       setProduct({
         title: "",
         price: "",
         category: "",
         image: null,
       });
-      setCreateModalOpen(false);
     } catch (error) {
       console.error("Gagal membuat produk:", error);
     }
