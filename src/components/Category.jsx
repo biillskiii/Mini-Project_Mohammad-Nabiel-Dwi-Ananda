@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import { BiSolidCategory } from "react-icons/bi";
 import { BiSearchAlt2 } from "react-icons/bi";
+
 const Category = ({ onSelectCategory, onSort, onSearch }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,7 +18,6 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
   const dropdownFilterRef = useRef(null);
 
   useEffect(() => {
-    // Event listener untuk menutup dropdown kategori saat mengklik di luar dropdown
     function handleClickOutsideCategory(event) {
       if (
         dropdownCategoryRef.current &&
@@ -27,7 +27,6 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
       }
     }
 
-    // Event listener untuk menutup dropdown filter saat mengklik di luar dropdown
     function handleClickOutsideFilter(event) {
       if (
         dropdownFilterRef.current &&
@@ -87,15 +86,17 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
   const handleSortRatingDesc = () => {
     onSort("ratingDesc");
   };
+
   const handleSearch = () => {
     onSearch(searchTerm);
   };
+
   return (
-    <div className="w-11/12 h-14 bg-white flex flex-row justify-start items-center ml-16 rounded-md shadow-md">
+    <div className="w-6/6 lg:w-11/12 h-14 bg-white flex flex-row justify-start items-center mx-auto rounded-md shadow-md">
       <div className="flex flex-row gap-x-5">
         <div className="relative">
           <input
-            className="border-2 border-black rounded-md ml-5 px-3 py-2 focus:outline-none w-60"
+            className="border-2 border-black rounded-md px-3 py-2 focus:outline-none lg:w-60 ml-5 w-40"
             type="text"
             placeholder="Cari barang..."
             value={searchTerm}
@@ -110,7 +111,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
       </div>
       <div className="flex ms-auto mr-5">
         <div
-          className="ml-8 flex items-center gap-x-2 ms-auto mr-16 cursor-pointer"
+          className="ml-8 flex items-center gap-x-2 ms-auto mr-5 cursor-pointer "
           onClick={dropdownCategory}
         >
           <BiSolidCategory /> Category
@@ -118,7 +119,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
         {isCategoryOpen && (
           <div
             ref={dropdownCategoryRef}
-            className="absolute right-52 mt-14 w-32 flex flex-col bg-white rounded-md shadow-md"
+            className="absolute right-52 lg:left-30 mt-14 w-32 flex flex-col bg-white rounded-md shadow-md"
           >
             <button
               className={`px-2 py-1 rounded-md text-sm font-semibold flex text-center  ${
@@ -167,7 +168,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
         {isDropdownOpen && (
           <div
             ref={dropdownFilterRef}
-            className="absolute right-8 mt-14 w-52 text-center bg-white rounded-md shadow-md"
+            className="absolute right-8 lg:right-16 mt-14 w-52 text-center bg-white rounded-md shadow-md"
           >
             <ul className="py-2 text-sm text-gray-700 flex flex-col justify-center">
               <button

@@ -87,17 +87,17 @@ export default function Home() {
           decrement={handleDecrement}
         />
       )}
-      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-16 mt-10 relative lg:mr-20">
+      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-16">
         <img src={CarrouselImage} className="w-full" alt="Carousel" />
         <div className="absolute w-full flex flex-col justify-center text-white gap-y-1 px-4 lg:ml-32">
-          <h1 className="text-4xl font-bold text-center lg:text-left">
+          <h1 className="text-lg font-bold text-left  lg:text-start lg:text-4xl">
             MACBOOK M1 PRO
           </h1>
-          <p className="text-lg mb-3 font-bold flex flex-row items-center gap-x-2 justify-center lg:justify-start">
+          <p className="text-lg mb-3 font-bold flex flex-row items-center gap-x-2  justify-start lg:justify-start">
             Discount 50% <MdDiscount size={20} />
           </p>
           <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-start gap-y-1 lg:gap-x-5">
-            <p className="text-sm font-medium text-center lg:text-left">
+            <p className="text-sm font-medium text-start lg:text-start">
               00.00 WIB - 12.00 WIB
             </p>
           </div>
@@ -114,7 +114,7 @@ export default function Home() {
 
       <div className="w-full h-40 flex flex-wrap justify-center gap-x-5 gap-y-10 mt-5">
         {isLoading ? (
-          <Loading /> 
+          <Loading />
         ) : searchTerm === "" ? (
           sortedProducts.map((product, index) => {
             if (
