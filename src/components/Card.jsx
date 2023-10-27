@@ -43,7 +43,7 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
       {loading && (
         <div className="w-full h-60 bg-white-200 flex justify-center items-center animate-spin">
           <FaSpinner size={20} />
-        </div>
+        </div>  
       )}
       <img
         src={images ? images : "https://placehold.co/160"}

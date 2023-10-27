@@ -132,7 +132,7 @@ const Admin = () => {
       const response = await dispatch(createProduct(newProduct));
       console.log("Produk baru telah dibuat:", response.payload);
 
-      // Setel ulang input
+
       setProduct({
         title: "",
         price: "",

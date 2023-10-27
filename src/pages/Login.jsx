@@ -13,11 +13,11 @@ function Login() {
     event.preventDefault();
     const dummyUser = { username: "nabiel", password: "password123" };
     const user = JSON.parse(localStorage.getItem("user"));
-
+  
     if (loginAsAdmin) {
       const dummyAdmin = { username: "admin", password: "admin123" };
       const admin = JSON.parse(localStorage.getItem("admin"));
-
+  
       if (admin && admin.username === username && admin.password === password) {
         localStorage.setItem("isLoggedIn", "admin");
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
@@ -45,13 +45,14 @@ function Login() {
       ) {
         localStorage.setItem("user", JSON.stringify(dummyUser));
         localStorage.setItem("isLoggedIn", true);
-        window.location.reload();
+        Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
+        navigate("/");
       } else {
         setErrorMessage("Invalid username or password");
       }
     }
   };
-
+  
   return (
     <div className="bg-green-600">
       <img src="" alt="" />
