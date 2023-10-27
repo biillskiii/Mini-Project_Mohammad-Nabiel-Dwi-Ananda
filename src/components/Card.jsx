@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Btn from "./ButtonBack";
+import Btn from "./Button";
 import {
   Button,
   Dialog,
@@ -10,7 +10,7 @@ import {
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../services/product";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import { FaSpinner } from "react-icons/fa";
 
 const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
@@ -23,7 +23,11 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
   const handleBuyClick = () => {
     if (isLoggedIn) {
       dispatch(addToCart({ id, title, rating, category, price, images }));
-      Swal.fire("Produk berhasil ditambahkan", "You clicked the button!", "success");
+      Swal.fire(
+        "Produk berhasil ditambahkan",
+        "You clicked the button!",
+        "success"
+      );
     } else {
       handleOpen();
     }
@@ -35,7 +39,7 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
   };
 
   const handleImageLoaded = () => {
-    setLoading(false); 
+    setLoading(false);
   };
 
   return (
@@ -43,7 +47,7 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
       {loading && (
         <div className="w-full h-60 bg-white-200 flex justify-center items-center animate-spin">
           <FaSpinner size={20} />
-        </div>  
+        </div>
       )}
       <img
         src={images ? images : "https://placehold.co/160"}
@@ -63,13 +67,23 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
         <p className="font-semibold text-base flex justify-center items-center">
           Price: {`$ ${price}`}
         </p>
-        <Btn id={id} label={"Buy"} className="flex flex-col" onClick={handleBuyClick} />
+        <Btn
+          id={id}
+          label={"Buy"}
+          className="flex flex-col"
+          onClick={handleBuyClick}
+        />
       </div>
       {open && (
         <Dialog open={open}>
           <DialogHeader>Login dulu kak</DialogHeader>
           <DialogFooter>
-            <Button variant="text" color="red" onClick={handleOpen} className="mr-1">
+            <Button
+              variant="text"
+              color="red"
+              onClick={handleOpen}
+              className="mr-1"
+            >
               <span>Cancel</span>
             </Button>
             <Button variant="gradient" color="green" onClick={handleLogin}>
