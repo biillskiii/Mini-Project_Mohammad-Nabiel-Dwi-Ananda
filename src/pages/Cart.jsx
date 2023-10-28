@@ -47,7 +47,6 @@ function Cart() {
   };
 
   const calculateTotal = () => {
-    // Filter cartItems based on selectedProducts and calculate the total
     return cartItems
       .filter((product) => selectedProducts[product.id])
       .reduce((total, product) => total + product.qty * product.price, 0);
@@ -57,15 +56,24 @@ function Cart() {
 
   const handleCheckout = () => {
     const itemsToCheckout = cartItems.filter(
-      (product) => !selectedProducts[product.id]
+      (product) => selectedProducts[product.id]
     );
-    setSelectedProducts({});
+  
+    setSelectedProducts({}); // Clear selected products
     dispatch(updateCart(itemsToCheckout));
     dispatch(getTotals());
+  
     localStorage.setItem("cart", JSON.stringify(itemsToCheckout));
+  
     Swal.fire("Checkout Berhasil!");
-    navigate("/invoice");
+  
+    navigate("/invoice", { state: { itemsToCheckout } });
   };
+  
+  
+  const isAnyProductSelected = Object.values(selectedProducts).some(
+    (isSelected) => isSelected
+  );
 
   return (
     <>
@@ -78,16 +86,6 @@ function Cart() {
             <div className="md:w-3/4">
               <div className="bg-white rounded-lg shadow-md p-6 mb-4">
                 <table className="w-full">
-                  <thead className="text-center gap-x-4">
-                    <tr>
-                      <th className="text-center font-semibold">Product</th>
-                      <th className="text-center font-semibold">Price</th>
-                      <th className="text-center font-semibold">Quantity</th>
-                      {/* <th className="text-center font-semibold">Total</th> */}
-                      <th className="text-center font-semibold">Actions</th>
-                      <th className="text-center font-semibold">Checkout</th>
-                    </tr>
-                  </thead>
                   {cartItems.length === 0 ? (
                     <p className="mt-5 font-bold opacity-50 flex justify-center text-center">
                       Tidak ada produk di keranjang
@@ -103,16 +101,20 @@ function Cart() {
                                 src={product.images}
                                 alt={product.title}
                               />
-                              <span className="font-semibold">
-                                {product.title}
-                              </span>
+                              <div className="flex flex-col justify-start items-start">
+                                <span className="font-semibold">
+                                  {product.title}
+                                </span>
+                                <span className="py-1 font-semibold text-start text-green-600">
+                                  ${product.price}
+                                </span>
+                              </div>
                             </div>
                           </td>
-                          <td className="py-4">${product.price}</td>
-                          <td className=" py-4 ">
+                          <td className=" py-1 ">
                             <div className="flex items-center">
                               <button
-                                className="border rounded-md py-2 px-4 mr-2"
+                                className="border rounded-md py-2 px-2 mr-2"
                                 onClick={() => handleDecrement(product.id)}
                               >
                                 -
@@ -121,14 +123,13 @@ function Cart() {
                                 {product.qty}
                               </span>
                               <button
-                                className="border rounded-md py-2 px-4 ml-2"
+                                className="border rounded-md py-2 px-2 ml-2"
                                 onClick={() => handleIncrement(product.id)}
                               >
                                 +
                               </button>
                             </div>
                           </td>
-                          {/* <td className="py-4">${product.qty * product.price}</td> */}
                           <td className="py-4">
                             <button
                               className="text-red-500"
@@ -159,8 +160,13 @@ function Cart() {
                   <span className="font-semibold">${total.toFixed(2)}</span>
                 </div>
                 <button
-                  className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full"
+                  className={`bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full ${
+                    !isAnyProductSelected
+                      ? "opacity-50 pointer-events-none"
+                      : ""
+                  }`}
                   onClick={handleCheckout}
+                  disabled={!isAnyProductSelected}
                 >
                   Checkout
                 </button>

@@ -62,7 +62,7 @@ function Login() {
           className="w-96 bg-white p-4 rounded-md text-white shadow-md"
         >
           <h1 className="text-3xl text-center mt-2 mb-14 font-bold text-black">
-            {loginAsAdmin ? "Admin Login" : "Welcome"}
+            {loginAsAdmin ? "Admin Login" : "Login"}
           </h1>
           <div className="mb-3">
             <label

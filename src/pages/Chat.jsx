@@ -15,7 +15,6 @@ function Chat() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleAsk = async () => {
     setLoading(true);

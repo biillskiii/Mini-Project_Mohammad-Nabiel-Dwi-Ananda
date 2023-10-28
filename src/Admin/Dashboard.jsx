@@ -13,7 +13,7 @@ const Sidebar = ({ username, onLogout }) => {
     <div className="fixed h-screen w-48 bg-gray-800 text-white">
       <div className="py-4 px-2">
         <p className="block p-2">Dashboard</p>
-        <button className="p-2 hover:bg-gray-600" onClick={onLogout}>
+        <button className="p-2 hover-bg-gray-600" onClick={onLogout}>
           Logout
         </button>
       </div>
@@ -33,8 +33,9 @@ const Admin = () => {
     title: "",
     price: "",
     category: "",
-    image: null,
+    images: null,
   });
+  const [isEditing, setIsEditing] = useState(false);
 
   const products = useSelector((state) => state.productAdmin.products);
 
@@ -45,10 +46,10 @@ const Admin = () => {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
-    if (name === "image") {
+    if (name === "images") {
       setProduct({
         ...product,
-        image: files[0],
+        images: files[0],
       });
     } else {
       setProduct({
@@ -58,52 +59,73 @@ const Admin = () => {
     }
   };
 
-  const handleEdit = (products) => {
-    setEditingProductId(products.id);
+  const handleEdit = (product) => {
+    setEditingProductId(product.id);
     setEditProductData({
-      title: products.title,
-      price: products.price,
-      category: products.category,
-      image: products.image,
+      title: product.title,
+      price: product.price,
+      category: product.category,
+      images: product.images,
     });
 
     setIsEditFormOpen(true);
+    setIsEditing(true);
   };
 
-  const handleSubmitEdit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const editedProduct = {
-        ...editProductData,
-        id: editingProductId,
-        price: parseFloat(editProductData.price),
-      };
+    if (isEditing) {
+      try {
+        const updatedProduct = {
+          id: editingProductId,
+          title: editProductData.title,
+          price: editProductData.price,
+          category: editProductData.category,
+          images: editProductData.images,
+        };
+        const response = await dispatch(updateProduct(updatedProduct));
+        console.log("Product updated:", response.payload);
 
-      const response = await dispatch(updateProduct(editedProduct));
-      console.log("Produk diperbarui:", response.payload);
-      setEditProductData({
-        title: "",
-        price: "",
-        category: "",
-        image: null,
-      });
-      setIsEditFormOpen(false);
-      setEditingProductId(null);
-    } catch (error) {
-      console.error("Gagal memperbarui produk:", error);
+        setEditingProductId(null);
+        setEditProductData(null);
+        setIsEditing(false);
+      } catch (error) {
+        console.error("Failed to update data:", error);
+      }
+    } else {
+      try {
+        const newProduct = {
+          title: product.title,
+          price: parseFloat(product.price),
+          category: product.category,
+          images: product.images,
+        };
+        const response = await dispatch(createProduct(newProduct));
+        console.log("New product created:", response.payload);
+
+        setProduct({
+          title: "",
+          price: "",
+          category: "",
+          images: null,
+        });
+        setCreateModalOpen(false);
+      } catch (error) {
+        console.error("Failed to create product:", error);
+      }
     }
   };
 
   const handleDelete = async (productId) => {
     const confirmation = window.confirm(
-      "Anda yakin ingin menghapus produk ini?"
+      "Are you sure you want to delete this product?"
     );
     if (confirmation) {
       try {
         const response = await dispatch(deleteProduct(productId));
-        console.log("Produk dihapus:", response.payload);
+        console.log("Product deleted:", response.payload);
       } catch (error) {
-        console.error("Gagal menghapus produk:", error);
+        console.error("Failed to delete product:", error);
       }
     }
   };
@@ -119,29 +141,6 @@ const Admin = () => {
 
   const closeCreateModal = () => {
     setCreateModalOpen(false);
-  };
-
-  const handleCreateProduct = async () => {
-    try {
-      const newProduct = {
-        title: product.title,
-        price: parseFloat(product.price),
-        category: product.category,
-        image: product.image,
-      };
-      const response = await dispatch(createProduct(newProduct));
-      console.log("Produk baru telah dibuat:", response.payload);
-
-
-      setProduct({
-        title: "",
-        price: "",
-        category: "",
-        image: null,
-      });
-    } catch (error) {
-      console.error("Gagal membuat produk:", error);
-    }
   };
 
   return (
@@ -195,7 +194,7 @@ const Admin = () => {
                   <td className="border p-2">
                     {product.images && (
                       <img
-                        src={product.images}
+                        src={product.images} // Make sure the property name matches your API response
                         alt="Product"
                         style={{ maxWidth: "100px", height: "auto" }}
                         className="m-auto img-fluid"
@@ -209,7 +208,7 @@ const Admin = () => {
                     >
                       Edit
                     </button>
-                    |{" "}
+                    {" | "}
                     <button
                       onClick={() => handleDelete(product.id)}
                       className="text-red-600 hover:underline cursor-pointer"
@@ -227,7 +226,7 @@ const Admin = () => {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 rounded">
             <h2 className="text-2xl font-bold mb-4">Create Product</h2>
-            <form onSubmit={handleCreateProduct}>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="title" className="block font-semibold">
                   Title
@@ -271,13 +270,13 @@ const Admin = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="image" className="block font-semibold">
+                <label htmlFor="images" className="block font-semibold">
                   Upload Image
                 </label>
                 <input
                   type="file"
-                  id="image"
-                  name="image"
+                  id="images"
+                  name="images"
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
                   required
@@ -303,7 +302,7 @@ const Admin = () => {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 rounded">
             <h2 className="text-2xl font-bold mb-4">Edit Product</h2>
-            <form onSubmit={handleSubmitEdit}>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="title" className="block font-semibold">
                   Title
@@ -362,19 +361,14 @@ const Admin = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="image" className="block font-semibold">
+                <label htmlFor="images" className="block font-semibold">
                   Upload Image
                 </label>
                 <input
                   type="file"
-                  id="image"
-                  name="image"
-                  onChange={(e) =>
-                    setEditProductData({
-                      ...editProductData,
-                      image: e.target.files[0],
-                    })
-                  }
+                  id="images"
+                  name="images"
+                  onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
                 />
               </div>

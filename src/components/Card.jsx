@@ -29,7 +29,7 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
         "success"
       );
     } else {
-      handleOpen();
+      navigate("/login");
     }
   };
 
@@ -74,24 +74,6 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
           onClick={handleBuyClick}
         />
       </div>
-      {open && (
-        <Dialog open={open}>
-          <DialogHeader>Login dulu kak</DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>Cancel</span>
-            </Button>
-            <Button variant="gradient" color="green" onClick={handleLogin}>
-              <span>Login</span>
-            </Button>
-          </DialogFooter>
-        </Dialog>
-      )}
     </div>
   );
 };
