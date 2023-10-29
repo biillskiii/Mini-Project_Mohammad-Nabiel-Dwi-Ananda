@@ -48,22 +48,12 @@ const Admin = () => {
   }, [dispatch]);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
 
-    if (name === "images") {
-      const file = files[0];
-      const imageUrl = URL.createObjectURL(file);
-
-      setProduct({
-        ...product,
-        images: imageUrl,
-      });
-    } else {
-      setProduct({
-        ...product,
-        [name]: value,
-      });
-    }
+    setProduct({
+      ...product,
+      [name]: value,
+    });
   };
 
   const handleEdit = (product) => {
@@ -99,7 +89,6 @@ const Admin = () => {
       console.error("Failed to delete product:", error);
     }
   };
-  
 
   const handleLogout = () => {
     localStorage.setItem("isLoggedIn", "false");
@@ -295,12 +284,13 @@ const Admin = () => {
               </div>
               <div className="mb-4">
                 <label htmlFor="images" className="block font-semibold">
-                  Upload Image
+                  Image URL
                 </label>
                 <input
-                  type="file"
+                  type="text"
                   id="images"
                   name="images"
+                  value={product.images}
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
                   required
