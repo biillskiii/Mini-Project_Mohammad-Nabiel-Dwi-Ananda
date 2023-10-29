@@ -21,7 +21,7 @@ export default function Home() {
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
   useEffect(() => {
     dispatch(getProducts()).then(() => {
@@ -87,7 +87,7 @@ export default function Home() {
           decrement={handleDecrement}
         />
       )}
-      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-16">
+      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-14">
         <img src={CarrouselImage} className="w-full" alt="Carousel" />
         <div className="absolute w-full flex flex-col justify-center text-white  px-4 lg:ml-32">
           <h1 className="text-xl font-bold text-left mt-5  lg:text-start lg:text-4xl lg:mt-10">
