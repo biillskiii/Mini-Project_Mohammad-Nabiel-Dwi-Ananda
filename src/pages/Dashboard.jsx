@@ -14,7 +14,7 @@ const Sidebar = ({ onLogout }) => {
     <div className="fixed h-screen w-48 bg-gray-800 text-white">
       <div className="py-4 px-2">
         <p className="block p-2">Dashboard</p>
-        <button className="p-2 hover-bg-gray-600" onClick={onLogout}>
+        <button className="p-2 hover:bg-gray-600" onClick={onLogout}>
           Logout
         </button>
       </div>
@@ -99,8 +99,9 @@ const Admin = () => {
     setCreateModalOpen(true);
   };
 
-  const closeCreateModal = () => {
+  const closeModal = () => {
     setCreateModalOpen(false);
+    setIsEditFormOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -237,8 +238,10 @@ const Admin = () => {
       </main>
       {isCreateModalOpen && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="bg-white p-4 rounded">
-            <h2 className="text-2xl font-bold mb-4">Create Product</h2>
+          <div className="w-5/12 bg-white p-4 rounded">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              Create Product
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="title" className="block font-semibold">
@@ -251,6 +254,7 @@ const Admin = () => {
                   value={product.title}
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
+                  placeholder="Name of product"
                   required
                 />
               </div>
@@ -265,6 +269,7 @@ const Admin = () => {
                   value={product.price}
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
+                  placeholder="$"
                   required
                 />
               </div>
@@ -272,15 +277,21 @@ const Admin = () => {
                 <label htmlFor="category" className="block font-semibold">
                   Category
                 </label>
-                <input
-                  type="text"
+                <select
                   id="category"
                   name="category"
                   value={product.category}
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
                   required
-                />
+                >
+                  <option value="" disabled>
+                    Choose a category
+                  </option>
+                  <option value="smartphones">Smartphones</option>
+                  <option value="laptops">Laptop</option>
+                  <option value="Aksesoris">Aksesoris</option>
+                </select>
               </div>
               <div className="mb-4">
                 <label htmlFor="images" className="block font-semibold">
@@ -293,6 +304,7 @@ const Admin = () => {
                   value={product.images}
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
+                  placeholder="https://imageproduct.jpg"
                   required
                 />
               </div>
@@ -302,19 +314,19 @@ const Admin = () => {
               >
                 Create
               </button>
+              <button
+                onClick={closeModal}
+                className="mt-4 ml-5 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md"
+              >
+                Cancel
+              </button>
             </form>
-            <button
-              onClick={closeCreateModal}
-              className="mt-4 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       )}
       {isEditFormOpen && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="bg-white p-4 rounded">
+          <div className="w-5/12 bg-white p-4 rounded">
             <h2 className="text-2xl font-bold mb-4">Edit Product</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -359,8 +371,7 @@ const Admin = () => {
                 <label htmlFor="category" className="block font-semibold">
                   Category
                 </label>
-                <input
-                  type="text"
+                <select
                   id="category"
                   name="category"
                   value={editProductData.category}
@@ -372,23 +383,28 @@ const Admin = () => {
                   }
                   className="w-full p-2 rounded-md bg-gray-100"
                   required
-                />
+                >
+                  <option value="" disabled>
+                    Choose a category
+                  </option>
+                  <option value="smartphones">Smartphones</option>
+                  <option value="laptops">Laptop</option>
+                  <option value="Aksesoris">Aksesoris</option>
+                </select>
               </div>
               <div className="mb-4">
                 <label htmlFor="images" className="block font-semibold">
-                  Upload Image
+                  Image URL
                 </label>
                 <input
-                  type="file"
+                  type="text"
                   id="images"
                   name="images"
-                  onChange={(e) =>
-                    setEditProductData({
-                      ...editProductData,
-                      images: URL.createObjectURL(e.target.files[0]),
-                    })
-                  }
+                  value={product.images}
+                  onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
+                  placeholder="https://imageproduct.jpg"
+                  required
                 />
               </div>
 
@@ -397,6 +413,12 @@ const Admin = () => {
                 className="px-4 py-2 bg-blue-600 text-white rounded-md"
               >
                 Update
+              </button>
+              <button
+                onClick={closeModal}
+                className="mt-4 ml-5 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md"
+              >
+                Cancel
               </button>
             </form>
           </div>
