@@ -21,11 +21,11 @@ export default function Home() {
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dispatch(getProducts()).then(() => {
-      setIsLoading(false); // Set isLoading to false when the data is loaded
+      setIsLoading(false); 
     });
   }, [dispatch]);
 

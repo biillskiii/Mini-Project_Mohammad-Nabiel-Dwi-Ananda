@@ -7,8 +7,9 @@ import {
   deleteProduct,
 } from "../services/productAdmin";
 import { useNavigate } from "react-router-dom";
+import { ImSpinner6 } from "react-icons/im";
 
-const Sidebar = ({ username, onLogout }) => {
+const Sidebar = ({ onLogout }) => {
   return (
     <div className="fixed h-screen w-48 bg-gray-800 text-white">
       <div className="py-4 px-2">
@@ -33,23 +34,29 @@ const Admin = () => {
     title: "",
     price: "",
     category: "",
-    images: null,
+    images: "",
   });
   const [isEditing, setIsEditing] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const products = useSelector((state) => state.productAdmin.products);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   useEffect(() => {
     dispatch(getProducts());
+    setIsLoading(false);
   }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
     if (name === "images") {
+      const file = files[0];
+      const imageUrl = URL.createObjectURL(file);
+
       setProduct({
         ...product,
-        images: files[0],
+        images: imageUrl,
       });
     } else {
       setProduct({
@@ -72,6 +79,41 @@ const Admin = () => {
     setIsEditing(true);
   };
 
+  const handleDelete = (product) => {
+    setProductToDelete(product);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setProductToDelete(null);
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDeleteConfirmed = async (productId) => {
+    try {
+      const response = await dispatch(deleteProduct(productId));
+      console.log("Product deleted:", response.payload);
+      closeDeleteModal();
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+    }
+  };
+  
+
+  const handleLogout = () => {
+    localStorage.setItem("isLoggedIn", "false");
+    navigate("/login");
+  };
+
+  const openCreateModal = () => {
+    setCreateModalOpen(true);
+  };
+
+  const closeCreateModal = () => {
+    setCreateModalOpen(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEditing) {
@@ -87,8 +129,9 @@ const Admin = () => {
         console.log("Product updated:", response.payload);
 
         setEditingProductId(null);
-        setEditProductData(null);
+        setEditProductData("");
         setIsEditing(false);
+        setIsEditFormOpen(false);
       } catch (error) {
         console.error("Failed to update data:", error);
       }
@@ -114,33 +157,6 @@ const Admin = () => {
         console.error("Failed to create product:", error);
       }
     }
-  };
-
-  const handleDelete = async (productId) => {
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
-    if (confirmation) {
-      try {
-        const response = await dispatch(deleteProduct(productId));
-        console.log("Product deleted:", response.payload);
-      } catch (error) {
-        console.error("Failed to delete product:", error);
-      }
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.setItem("isLoggedIn", "false");
-    navigate("/login");
-  };
-
-  const openCreateModal = () => {
-    setCreateModalOpen(true);
-  };
-
-  const closeCreateModal = () => {
-    setCreateModalOpen(false);
   };
 
   return (
@@ -192,13 +208,21 @@ const Admin = () => {
                   <td className="border p-2">{product.price}</td>
                   <td className="border p-2">{product.category}</td>
                   <td className="border p-2">
-                    {product.images && (
-                      <img
-                        src={product.images} // Make sure the property name matches your API response
-                        alt="Product"
-                        style={{ maxWidth: "100px", height: "auto" }}
-                        className="m-auto img-fluid"
-                      />
+                    {isLoading ? (
+                      <div>
+                        <ImSpinner6 className="animate-spin" size={30} />
+                      </div>
+                    ) : (
+                      <div>
+                        {product.images && (
+                          <img
+                            src={product.images}
+                            alt="Product"
+                            style={{ maxWidth: "100px", height: "auto" }}
+                            className="m-auto img-fluid"
+                          />
+                        )}
+                      </div>
                     )}
                   </td>
                   <td className="border p-2">
@@ -210,7 +234,7 @@ const Admin = () => {
                     </button>
                     {" | "}
                     <button
-                      onClick={() => handleDelete(product.id)}
+                      onClick={() => handleDelete(product)}
                       className="text-red-600 hover:underline cursor-pointer"
                     >
                       Delete
@@ -368,10 +392,16 @@ const Admin = () => {
                   type="file"
                   id="images"
                   name="images"
-                  onChange={handleChange}
+                  onChange={(e) =>
+                    setEditProductData({
+                      ...editProductData,
+                      images: URL.createObjectURL(e.target.files[0]),
+                    })
+                  }
                   className="w-full p-2 rounded-md bg-gray-100"
                 />
               </div>
+
               <button
                 type="submit"
                 className="px-4 py-2 bg-blue-600 text-white rounded-md"
@@ -379,6 +409,28 @@ const Admin = () => {
                 Update
               </button>
             </form>
+          </div>
+        </div>
+      )}
+      {isDeleteModalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+          <div className="bg-white p-4 rounded">
+            <h2 className="text-2xl font-bold mb-4">Delete Product</h2>
+            <p>Are you sure you want to delete this product?</p>
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={() => handleDeleteConfirmed(productToDelete.id)}
+                className="px-4 py-2 bg-red-600 text-white rounded-md"
+              >
+                Delete
+              </button>
+              <button
+                onClick={closeDeleteModal}
+                className="ml-4 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -11,23 +11,16 @@ function Login() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    const dummyUser = { username: "nabiel", password: "password123" };
-    const user = JSON.parse(localStorage.getItem("user"));
-  
+
+    if (!username || !password) {
+      setErrorMessage("Username and password are required.");
+      return;
+    }
+
     if (loginAsAdmin) {
-      const dummyAdmin = { username: "admin", password: "admin123" };
       const admin = JSON.parse(localStorage.getItem("admin"));
-  
+
       if (admin && admin.username === username && admin.password === password) {
-        localStorage.setItem("isLoggedIn", "admin");
-        Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
-        navigate("/admin/dashboard");
-      } else if (
-        admin === null &&
-        username === dummyAdmin.username &&
-        password === dummyAdmin.password
-      ) {
-        localStorage.setItem("admin", JSON.stringify(dummyAdmin));
         localStorage.setItem("isLoggedIn", "admin");
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
         navigate("/admin/dashboard");
@@ -35,15 +28,9 @@ function Login() {
         setErrorMessage("Invalid admin credentials");
       }
     } else {
+      const user = JSON.parse(localStorage.getItem("user"));
+
       if (user && user.username === username && user.password === password) {
-        localStorage.setItem("isLoggedIn", true);
-        Swal.fire("Berhasil Login!", `Hello ${username}`);
-        navigate("/");
-      } else if (
-        username === dummyUser.username &&
-        password === dummyUser.password
-      ) {
-        localStorage.setItem("user", JSON.stringify(dummyUser));
         localStorage.setItem("isLoggedIn", true);
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
         navigate("/");
@@ -52,16 +39,15 @@ function Login() {
       }
     }
   };
-  
+
   return (
     <div className="bg-green-600">
-      <img src="" alt="" />
       <div className="flex justify-center items-center h-screen shadow-5xl">
         <form
           onSubmit={handleLogin}
           className="w-96 bg-white p-4 rounded-md text-white shadow-md"
         >
-          <h1 className="text-3xl text-center mt-2 mb-14 font-bold text-black">
+          <h1 className="text-3xl text-center mt-2 mb-4 font-bold text-black">
             {loginAsAdmin ? "Admin Login" : "Login"}
           </h1>
           <div className="mb-3">
@@ -81,10 +67,10 @@ function Login() {
               required
             />
           </div>
-          <div className="my-5">
+          <div className="my-3">
             <label
               htmlFor="password"
-              className="block  text-black font-semibold text-sm"
+              className="block text-black font-semibold text-sm"
             >
               Password
             </label>
@@ -103,10 +89,10 @@ function Login() {
               <input
                 type="checkbox"
                 className="mr-2"
-                id="rememberMe"
+                id="loginAsAdmin"
                 onChange={() => setLoginAsAdmin(!loginAsAdmin)}
               />
-              <label htmlFor="rememberMe" className="text-black">
+              <label htmlFor="loginAsAdmin" className="text-black">
                 Login as Admin
               </label>
             </div>
