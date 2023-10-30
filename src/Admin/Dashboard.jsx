@@ -5,17 +5,20 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-} from "../services/productAdmin";
+} from "../services/product";
 import { useNavigate } from "react-router-dom";
 import { ImSpinner6 } from "react-icons/im";
-
+import { BiLogOut } from "react-icons/bi";
 const Sidebar = ({ onLogout }) => {
   return (
-    <div className="fixed h-screen w-48 bg-gray-800 text-white">
-      <div className="py-4 px-2">
-        <p className="block p-2">Dashboard</p>
-        <button className="p-2 hover:bg-gray-600" onClick={onLogout}>
-          Logout
+    <div className="fixed h-screen w-48 bg-black text-white">
+      <div className="py-4 px-2 mt-10">
+        <p className="block p-2 bg-green-600 text-left rounded-md">Dashboard</p>
+        <button
+          className="w-full text-left mt-5 p-2 bg-red-600 flex items-center gap-x-1 rounded-md"
+          onClick={onLogout}
+        >
+          <BiLogOut size={20} /> Logout
         </button>
       </div>
     </div>
@@ -32,13 +35,14 @@ const Admin = () => {
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [product, setProduct] = useState({
     title: "",
+    rating: "",
     price: "",
     category: "",
     images: "",
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const products = useSelector((state) => state.productAdmin.products);
+  const products = useSelector((state) => state.productCart.products);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
 
@@ -60,6 +64,7 @@ const Admin = () => {
     setEditingProductId(product.id);
     setEditProductData({
       title: product.title,
+      rating: product.rating,
       price: product.price,
       category: product.category,
       images: product.images,
@@ -103,7 +108,9 @@ const Admin = () => {
     setCreateModalOpen(false);
     setIsEditFormOpen(false);
   };
-
+  const generateRandomRating = () => {
+    return (Math.random() * (5 - 1) + 1).toFixed(1);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEditing) {
@@ -111,6 +118,7 @@ const Admin = () => {
         const updatedProduct = {
           id: editingProductId,
           title: editProductData.title,
+          rating: editProductData.rating,
           price: editProductData.price,
           category: editProductData.category,
           images: editProductData.images,
@@ -129,6 +137,7 @@ const Admin = () => {
       try {
         const newProduct = {
           title: product.title,
+          rating: generateRandomRating(),
           price: parseFloat(product.price),
           category: product.category,
           images: product.images,
@@ -138,6 +147,7 @@ const Admin = () => {
 
         setProduct({
           title: "",
+          rating: "",
           price: "",
           category: "",
           images: null,
@@ -150,14 +160,14 @@ const Admin = () => {
   };
 
   return (
-    <div className="relative bg-gray-100 min-h-screen">
+    <div className="relative bg-white min-h-screen">
       <Sidebar username={username} onLogout={handleLogout} />
       <main className="ml-48 p-4">
         <div className="flex justify-between items-center">
           <p className="p-2 font-bold text-xl">Hello, {username}</p>
           <button
             onClick={openCreateModal}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-gree-900"
           >
             Create Product
           </button>
@@ -172,6 +182,9 @@ const Admin = () => {
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Product name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Rating
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Price
@@ -195,6 +208,7 @@ const Admin = () => {
                 >
                   <td className="border p-2">{index + 1}</td>
                   <td className="border p-2">{product.title}</td>
+                  <td className="border p-2">{product.rating}</td>
                   <td className="border p-2">{product.price}</td>
                   <td className="border p-2">{product.category}</td>
                   <td className="border p-2">
@@ -273,6 +287,7 @@ const Admin = () => {
                   required
                 />
               </div>
+              
               <div className="mb-4">
                 <label htmlFor="category" className="block font-semibold">
                   Category

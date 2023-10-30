@@ -5,7 +5,7 @@ const Button = ({id, label, onClick}) => {
   <button
      id={id}
      onClick={onClick}
-     className='hover:bg-green-900 focus:outline-none border-none w-3/12 h-10 ms-auto bg-green-600 rounded-md text-white font-semibold flex justify-center items-center text-lg ml-6 shadow-xl'
+     className='hover:bg-green-900 focus:outline-none border-none w-4/12 h-10 ms-auto bg-green-600 rounded-md text-white font-semibold flex justify-center items-center text-base ml-6 shadow-xl'
   >
     {label}
   </button>

@@ -13,8 +13,11 @@ import {
 import Swal from "sweetalert2";
 import Button from "../components/ButtonBack";
 function Cart() {
-  const cartItems = useSelector((state) => state.products.cart);
+  const cartItems = useSelector((state) => state.productCart.cart);
   const [selectedProducts, setSelectedProducts] = useState({});
+  const [selectAllClicked, setSelectAllClicked] = useState(false);
+  const [selectAllText, setSelectAllText] = useState("Select All");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,6 +54,18 @@ function Cart() {
       .filter((product) => selectedProducts[product.id])
       .reduce((total, product) => total + product.qty * product.price, 0);
   };
+  const handleSelectAll = () => {
+    if (selectAllClicked) {
+      setSelectedProducts({});
+    } else {
+      const allProducts = {};
+      cartItems.forEach((product) => {
+        allProducts[product.id] = true;
+      });
+      setSelectedProducts(allProducts);
+    }
+    setSelectAllClicked(!selectAllClicked);
+  };
 
   const total = calculateTotal();
 
@@ -58,19 +73,18 @@ function Cart() {
     const itemsToCheckout = cartItems.filter(
       (product) => selectedProducts[product.id]
     );
-  
-    setSelectedProducts({}); // Clear selected products
+
+    setSelectedProducts({});
     dispatch(updateCart(itemsToCheckout));
     dispatch(getTotals());
-  
+
     localStorage.setItem("cart", JSON.stringify(itemsToCheckout));
-  
+
     Swal.fire("Checkout Berhasil!");
-  
+
     navigate("/invoice", { state: { itemsToCheckout } });
   };
-  
-  
+
   const isAnyProductSelected = Object.values(selectedProducts).some(
     (isSelected) => isSelected
   );
@@ -155,12 +169,19 @@ function Cart() {
             <div className="md:w-1/4">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-lg font-semibold mb-4">Summary</h2>
+
                 <div className="flex justify-between mb-2">
                   <span className="font-semibold">Total</span>
                   <span className="font-semibold">${total.toFixed(2)}</span>
                 </div>
                 <button
-                  className={`bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full ${
+                  className="bg-blue-500 text-white py-2 px-4 rounded-lg mb-1 w-full"
+                  onClick={handleSelectAll}
+                >
+                  {selectAllClicked ? "Unselect all" : "Select all"}
+                </button>
+                <button
+                  className={`bg-blue-500 text-white py-2 px-4 rounded-lg w-full ${
                     !isAnyProductSelected
                       ? "opacity-50 pointer-events-none"
                       : ""

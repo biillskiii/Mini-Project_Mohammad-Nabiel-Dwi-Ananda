@@ -22,8 +22,15 @@ function Login() {
 
       if (admin && admin.username === username && admin.password === password) {
         localStorage.setItem("isLoggedIn", "admin");
-        Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
-        navigate("/admin/dashboard");
+        Swal.fire({
+          icon: "success",
+          title: "Admin Successfully Logged In!",
+          confirmButtonText: "OK",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/admin/dashboard");
+          }
+        });
       } else {
         setErrorMessage("Invalid admin credentials");
       }

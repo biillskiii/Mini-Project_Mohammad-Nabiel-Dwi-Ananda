@@ -13,7 +13,7 @@ import Loading from "../components/Preloader"; // Import the Loading component
 
 export default function Home() {
   const dispatch = useDispatch();
-  const newProduct = useSelector((state) => state.products.products);
+  const newProduct = useSelector((state) => state.productCart.products);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -129,7 +129,6 @@ export default function Home() {
                   price={product.price}
                   images={product.images}
                   isLoggedIn={isLoggedIn}
-                  onAddToCart={() => handleAddToCart(product)}
                 />
               );
             } else {
@@ -152,7 +151,6 @@ export default function Home() {
                   price={product.price}
                   images={product.images}
                   isLoggedIn={isLoggedIn}
-                  onAddToCart={() => handleAddToCart(product)}
                 />
               );
             } else {

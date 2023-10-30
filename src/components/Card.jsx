@@ -44,17 +44,18 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
 
   return (
     <div className="w-80 h-auto bg-white rounded-md shadow-md grid grid-cols-1 gap-y-1 p-4">
-      {loading && (
-        <div className="w-full h-60 bg-white-200 flex justify-center items-center animate-spin">
-          <FaSpinner size={20} />
-        </div>
-      )}
-      <img
-        src={images ? images : "https://placehold.co/160"}
-        className={`w-auto h-60 mx-auto ${loading ? "hidden" : "block"}`}
-        alt={title}
-        onLoad={handleImageLoaded}
-      />
+      <div className="relative">
+        {loading && (
+          <div className="animate-pulse h-60 w-full bg-gray-200 top-0 left-0 flex justify-center items-center" ><FaSpinner size={20} className="animate-spin "/></div>
+        )}
+        <img
+          src={images ? images : "https://placehold.co/160"}
+          className={`w-auto h-60 mx-auto ${loading ? "hidden" : "block"}`}
+          alt={title}
+          onLoad={handleImageLoaded}
+        />
+      </div>
+
       <h2 className="font-semibold text-lg overflow-hidden">{title}</h2>
       <div className="my-3">
         <p className="font-medium text-sm flex flex-row items-center gap-x-2">
@@ -69,7 +70,7 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
         </p>
         <Btn
           id={id}
-          label={"Buy"}
+          label={"Add cart"}
           className="flex flex-col"
           onClick={handleBuyClick}
         />

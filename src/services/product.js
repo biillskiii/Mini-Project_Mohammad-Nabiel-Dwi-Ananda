@@ -55,7 +55,7 @@ export const deleteProduct = createAsyncThunk(
 );
 
 const products = createSlice({
-  name: "productAdmin",
+  name: "productCart",
   initialState: {
     products: [],
     cart: [],
@@ -64,7 +64,7 @@ const products = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      let olditems = state.cart.filter(
+      let oldItems = state.cart.filter(
         (products) => products.id !== action.payload.id
       );
       let newItems = state.cart.filter(
@@ -74,8 +74,8 @@ const products = createSlice({
       newItems.length
         ? (newItems[0] = { ...action.payload, qty: newQty })
         : (newItems = [{ ...action.payload, qty: newQty }]);
-      olditems.push(newItems[0]);
-      state.cart = olditems;
+        oldItems.push(newItems[0]);
+      state.cart = oldItems;
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     deleteItem: (state, action) => {
@@ -87,7 +87,7 @@ const products = createSlice({
     incrementItem: (state, action) => {
       state.cart = state.cart.map((product) => {
         if (product.id === action.payload) {
-          if (product.qty < 99) { 
+          if (product.qty <= 100) { 
             product.qty += 1;
           }
         }

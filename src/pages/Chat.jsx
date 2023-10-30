@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { OpenAIApi, Configuration } from "openai";
 import Input from "../components/Input";
 import Logo from "../assets/openai.png";
@@ -21,7 +20,7 @@ function Chat() {
     try {
       const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `Berikan jawaban umum dari pertanyaan mengenai Gadget Store yang merupakan suatu e-commerce yang menjual khusus Gadget : ${question}`,
+        prompt: `buatkan prompt untuk chatbot yang fokus menjawab mengenai Gadget store yang mana itu adalah e-commerce yang menjual khusus gadget seperti laptop, smartphone dan aksesoris. Dan juga chatbot jika ada yang bertanya mengenai product jawab saja ada 3 kategori yaitu laptop smartphone dan juga aksesoris : ${question}`,
         temperature: 0.5,
         max_tokens: 3000,
       });

@@ -1,8 +1,8 @@
 import React from "react";
-
+import { BsInstagram, BsLinkedin, BsGithub } from "react-icons/bs";
 const Footer = () => {
   return (
-    <footer class="w-full p-4 bg-green-600 md:p-8 lg:p-10 dark:bg-gray-800 shadow-md">
+    <footer class="w-full bg-green-600 p-8 dark:bg-gray-800 shadow-md">
       <div class="mx-auto w-full-xl text-center">
         <a
           href="#"
@@ -10,53 +10,25 @@ const Footer = () => {
         >
           Gadget Store
         </a>
-        <p class="my-6 text-white dark:text-gray-400">
-          Open-source library of over 400+ web components and interactive
-          elements built for better web.
-        </p>
-        <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
+        <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white gap-x-5 mt-5">
           <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6 ">
-              About
+            <a href="https://instagram.com/biillskiii" class="mr-4 hover:underline md:mr-6 ">
+              <BsInstagram size={30} color="white"/>
             </a>
           </li>
           <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">
-              Premium
+            <a href="https://www.linkedin.com/in/mohammad-nabiel/" class="mr-4 hover:underline md:mr-6">
+              <BsLinkedin size={30} color="white"/>
             </a>
           </li>
           <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6 ">
-              Campaigns
-            </a>
-          </li>
-          <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">
-              Affiliate Program
-            </a>
-          </li>
-          <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">
-              FAQs
-            </a>
-          </li>
-          <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">
-              Contact
+            <a href="https://github.com/biillskiii" class="mr-4 hover:underline md:mr-6">
+              <BsGithub size={30} color="white"/>
             </a>
           </li>
         </ul>
         <span class="text-sm text-white sm:text-center dark:text-gray-400">
-          © 2021-2022{" "}
-          <a href="#" class="hover:underline">
-            Flowbite™
-          </a>
-          . All Rights Reserved.
+          © 2023 Frontend junior - Nabiel
         </span>
       </div>
     </footer>
