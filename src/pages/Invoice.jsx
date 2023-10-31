@@ -5,7 +5,7 @@ import ButtonBack from "../components/ButtonBack"
 const Invoice = () => {
   const location = useLocation();
   const itemsToCheckout = location.state.itemsToCheckout;
-  const username = localStorage.getItem("user");
+  const username = localStorage.getItem("userCredentials");
   const parsedUser = JSON.parse(username);
   const user = parsedUser ? parsedUser.username : "";
   const subtotal = itemsToCheckout.reduce(

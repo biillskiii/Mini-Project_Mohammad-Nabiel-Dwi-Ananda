@@ -72,7 +72,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const loggedIn = localStorage.getItem("isLoggedIn") === "user";
     setIsLoggedIn(loggedIn);
   }, []);
 

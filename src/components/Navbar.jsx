@@ -39,7 +39,7 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  const username = localStorage.getItem("user");
+  const username = localStorage.getItem("userCredentials");
   const parsedUser = JSON.parse(username);
   const user = parsedUser ? parsedUser.username : "";
 

@@ -42,7 +42,7 @@ function Login() {
       }
     } else {
       const userCredentials = {
-        username: "nabiel",
+        username: "Nabiel",
         password: "password123",
       };
 
@@ -51,6 +51,7 @@ function Login() {
         userCredentials.password === password
       ) {
         localStorage.setItem("isLoggedIn", "user");
+        localStorage.setItem("userCredentials", JSON.stringify(userCredentials)); 
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
         navigate("/");
       } else {

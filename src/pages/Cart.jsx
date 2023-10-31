@@ -16,7 +16,6 @@ function Cart() {
   const cartItems = useSelector((state) => state.productCart.cart);
   const [selectedProducts, setSelectedProducts] = useState({});
   const [selectAllClicked, setSelectAllClicked] = useState(false);
-  const [selectAllText, setSelectAllText] = useState("Select All");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
