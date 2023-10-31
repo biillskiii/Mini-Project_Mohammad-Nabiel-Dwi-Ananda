@@ -18,9 +18,15 @@ function Login() {
     }
 
     if (loginAsAdmin) {
-      const admin = JSON.parse(localStorage.getItem("admin"));
+      const adminCredentials = {
+        username: "admin",
+        password: "admin123",
+      };
 
-      if (admin && admin.username === username && admin.password === password) {
+      if (
+        adminCredentials.username === username &&
+        adminCredentials.password === password
+      ) {
         localStorage.setItem("isLoggedIn", "admin");
         Swal.fire({
           icon: "success",
@@ -35,10 +41,16 @@ function Login() {
         setErrorMessage("Invalid admin credentials");
       }
     } else {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const userCredentials = {
+        username: "nabiel",
+        password: "password123",
+      };
 
-      if (user && user.username === username && user.password === password) {
-        localStorage.setItem("isLoggedIn", true);
+      if (
+        userCredentials.username === username &&
+        userCredentials.password === password
+      ) {
+        localStorage.setItem("isLoggedIn", "user");
         Swal.fire("Berhasil Login!", `Hello ${username}`, "success");
         navigate("/");
       } else {

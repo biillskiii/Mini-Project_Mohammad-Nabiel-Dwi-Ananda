@@ -54,10 +54,19 @@ const Admin = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setProduct({
-      ...product,
-      [name]: value,
-    });
+    if (isEditing) {
+      // Jika sedang mengedit, perbarui state editProductData
+      setEditProductData({
+        ...editProductData,
+        [name]: value,
+      });
+    } else {
+      // Jika sedang membuat produk baru, perbarui state product
+      setProduct({
+        ...product,
+        [name]: value,
+      });
+    }
   };
 
   const handleEdit = (product) => {
@@ -127,7 +136,7 @@ const Admin = () => {
         console.log("Product updated:", response.payload);
 
         setEditingProductId(null);
-        setEditProductData("");
+        setEditProductData(null);
         setIsEditing(false);
         setIsEditFormOpen(false);
       } catch (error) {
@@ -287,7 +296,7 @@ const Admin = () => {
                   required
                 />
               </div>
-              
+
               <div className="mb-4">
                 <label htmlFor="category" className="block font-semibold">
                   Category
@@ -320,7 +329,6 @@ const Admin = () => {
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
                   placeholder="https://imageproduct.jpg"
-                  required
                 />
               </div>
               <button
@@ -412,10 +420,10 @@ const Admin = () => {
                   Image URL
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   id="images"
                   name="images"
-                  value={product.images}
+                  value={isEditing ? editProductData.images : product.images}
                   onChange={handleChange}
                   className="w-full p-2 rounded-md bg-gray-100"
                   placeholder="https://imageproduct.jpg"

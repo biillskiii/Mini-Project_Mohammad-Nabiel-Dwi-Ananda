@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const loggedIn = localStorage.getItem("isLoggedIn") === "user";
     setIsLoggedIn(loggedIn);
   }, []);
 
@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.setItem("isLoggedIn", "false");
+    localStorage.setItem("isLoggedIn", !"user");
     setIsLoggedIn(false);
     navigate("/login");
   };
@@ -69,13 +69,8 @@ const Navbar = () => {
               <RxAvatar size={30} /> Hello, {user}
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-16 mt-40 w-32 bg-white rounded-md shadow-md z-10">
+              <div className="absolute right-16 mt-32 w-32 bg-white rounded-md shadow-md z-10">
                 <ul className="py-2 text-base text-black gap-y-2 flex flex-col">
-                  <li
-                    className="font-semibold flex ml-5 gap-x-2 items-center"
-                  >
-                    <RxAvatar size={20} /> Profile
-                  </li>
                   <li
                     className="font-semibold flex ml-5 gap-x-2 items-center cursor-pointer"
                     onClick={openLogoutModal}

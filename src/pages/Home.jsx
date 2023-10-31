@@ -102,7 +102,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-10">
+      <div className="mt-10 z-10">
         <Category
           onSelectCategory={handleCategorySelect}
           onSort={handleSort}
