@@ -57,8 +57,8 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
       />
       <h2 className="font-semibold text-lg overflow-hidden">{title}</h2>
       <div className="my-3">
-        <p className="font-medium text-sm flex flex-row items-center gap-x-2">
-          Rating : {rating} <AiFillStar color="gold" />
+        <p className="font-medium text-sm flex flex-row items-center gap-x-1">
+          Rating : <AiFillStar color="gold" />{rating} 
         </p>
         <p className="font-medium text-sm">Category : {category}</p>
       </div>

@@ -9,11 +9,23 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ImSpinner6 } from "react-icons/im";
 import { BiLogOut } from "react-icons/bi";
-const Sidebar = ({ onLogout }) => {
+import { PiSidebarSimpleFill } from "react-icons/pi";
+import { AiFillCloseCircle } from "react-icons/ai";
+const Sidebar = ({ onLogout, isOpen }) => {
+  const navigate = useNavigate();
   return (
-    <div className="fixed h-screen w-48 bg-black text-white">
+    <div
+      className={`fixed h-screen w-48 bg-black text-white z-10 ${
+        isOpen ? "translate-x-0" : "-translate-x-48 "
+      }`}
+    >
       <div className="py-4 px-2 mt-10">
-        <p className="block p-2 bg-green-600 text-left rounded-md">Dashboard</p>
+        <button
+          onClick={navigate("/admin/dashboard")}
+          className="w-full p-2 bg-green-600 text-left rounded-md"
+        >
+          Dashboard
+        </button>
         <button
           className="w-full text-left mt-5 p-2 bg-red-600 flex items-center gap-x-1 rounded-md"
           onClick={onLogout}
@@ -45,7 +57,10 @@ const Admin = () => {
   const products = useSelector((state) => state.productCart.products);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   useEffect(() => {
     dispatch(getProducts());
     setIsLoading(false);
@@ -55,13 +70,11 @@ const Admin = () => {
     const { name, value } = e.target;
 
     if (isEditing) {
-      // Jika sedang mengedit, perbarui state editProductData
       setEditProductData({
         ...editProductData,
         [name]: value,
       });
     } else {
-      // Jika sedang membuat produk baru, perbarui state product
       setProduct({
         ...product,
         [name]: value,
@@ -169,11 +182,34 @@ const Admin = () => {
   };
 
   return (
-    <div className="relative bg-white min-h-screen">
-      <Sidebar username={username} onLogout={handleLogout} />
-      <main className="ml-48 p-4">
+    <div
+      className={`relative bg-white min-h-screen ${
+        isSidebarOpen ? "ml-0" : "ml--2"
+      }`}
+    >
+      <button onClick={toggleSidebar} className="fixed top-5 left-5 z-20">
+        <AiFillCloseCircle size={20} color="white" />
+      </button>
+
+      <button
+        onClick={toggleSidebar}
+        className={`absolute top-5 left-5 z-20 ${
+          isSidebarOpen
+            ? "transform -translate-x-10"
+            : "transform translate-x-0"
+        } transition-transform`}
+      >
+        <PiSidebarSimpleFill size={30} color="black" />
+      </button>
+
+      <Sidebar
+        username={username}
+        onLogout={handleLogout}
+        isOpen={isSidebarOpen}
+      />
+      <main className="p-4">
         <div className="flex justify-between items-center">
-          <p className="p-2 font-bold text-xl">Hello, {username}</p>
+          <p className="ml-10 font-bold text-xl">Hello, {username}</p>
           <button
             onClick={openCreateModal}
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-gree-900"
@@ -420,7 +456,7 @@ const Admin = () => {
                   Image URL
                 </label>
                 <input
-                  type="file"
+                  type="images"
                   id="images"
                   name="images"
                   value={isEditing ? editProductData.images : product.images}
