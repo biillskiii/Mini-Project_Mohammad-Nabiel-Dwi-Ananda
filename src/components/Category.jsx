@@ -92,11 +92,11 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
   };
 
   return (
-    <div className="w-6/6 lg:w-11/12 h-14 bg-white flex flex-row justify-start items-center mx-auto rounded-md shadow-md">
+    <div className="w-6/6 lg:w-11/12 h-14 bg-white flex flex-row justify-start items-center mx-auto rounded-md shadow-md z-20">
       <div className="flex flex-row gap-x-5 lg:gap-x-5">
         <div className="relative">
           <input
-            className="border-2 border-black rounded-md px-3 py-2 focus:outline-none lg:w-60 ml-5 w-40"
+            className="border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none lg:w-60 ml-5 w-40"
             type="text"
             placeholder="Cari barang..."
             value={searchTerm}
