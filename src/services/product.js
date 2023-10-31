@@ -1,56 +1,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import axios from "axios";
 export const getProducts = createAsyncThunk("getProducts", async (arg) => {
-  const result = await fetch(
+  const response = await axios.get(
     "https://6527d572931d71583df17723.mockapi.io/products"
-  ).then((res) => res.json());
-  return result;
+  );
+  return response.data;
 });
 
 export const createProduct = createAsyncThunk(
   "createProduct",
   async (productData) => {
-    const result = await fetch(
+    const response = await axios.post(
       "https://6527d572931d71583df17723.mockapi.io/products",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      }
-    ).then((res) => res.json());
-    return result;
+      productData
+    );
+    return response.data;
   }
 );
 
 export const updateProduct = createAsyncThunk(
   "updateProduct",
   async (productData) => {
-    const result = await fetch(
+    const response = await axios.put(
       `https://6527d572931d71583df17723.mockapi.io/products/${productData.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      }
-    ).then((res) => res.json());
-    return result;
+      productData
+    );
+    return response.data;
   }
 );
 
 export const deleteProduct = createAsyncThunk(
   "deleteProduct",
   async (productId) => {
-    const result = await fetch(
-      `https://6527d572931d71583df17723.mockapi.io/products/${productId}`,
-      {
-        method: "DELETE",
-      }
-    ).then((res) => res.json());
-    return result;
+    const response = await axios.delete(
+      `https://6527d572931d71583df17723.mockapi.io/products/${productId}`
+    );
+    return response.productId; 
   }
 );
 
@@ -74,7 +59,7 @@ const products = createSlice({
       newItems.length
         ? (newItems[0] = { ...action.payload, qty: newQty })
         : (newItems = [{ ...action.payload, qty: newQty }]);
-        oldItems.push(newItems[0]);
+      oldItems.push(newItems[0]);
       state.cart = oldItems;
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
@@ -87,7 +72,7 @@ const products = createSlice({
     incrementItem: (state, action) => {
       state.cart = state.cart.map((product) => {
         if (product.id === action.payload) {
-          if (product.qty <= 100) { 
+          if (product.qty <= 100) {
             product.qty += 1;
           }
         }
@@ -95,7 +80,7 @@ const products = createSlice({
       });
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
-    
+
     decrementItem: (state, action) => {
       state.cart = state.cart.map((product) => {
         if (product.id === action.payload) {
@@ -120,10 +105,10 @@ const products = createSlice({
     getTotals(state, action) {
       let { total, quantity } = state.cart.reduce(
         (cartTotal, cartItem) => {
-          const { price, qty } = cartItem; 
+          const { price, qty } = cartItem;
           const itemTotal = price * qty;
           cartTotal.total += itemTotal;
-          cartTotal.quantity += qty; 
+          cartTotal.quantity += qty;
 
           return cartTotal;
         },
@@ -142,21 +127,21 @@ const products = createSlice({
       state.products = action.payload;
     });
     builder.addCase(createProduct.fulfilled, (state, action) => {
-        state.products = [...state.products, action.payload];
+      state.products = [...state.products, action.payload];
     });
     builder.addCase(updateProduct.fulfilled, (state, action) => {
-        const updatedProduct = action.payload;
-        const updatedProducts = state.products.map((product) =>
-          product.id === updatedProduct.id ? updatedProduct : product
-        );
-        state.products = updatedProducts;
+      const updatedProduct = action.payload;
+      const updatedProducts = state.products.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      );
+      state.products = updatedProducts;
     });
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
-        const deletedProductId = action.payload;
-        const updatedProducts = state.products.filter(
-          (product) => product.id !== deletedProductId
-        );
-        state.products = updatedProducts;
+      const deletedProductId = action.payload;
+      const updatedProducts = state.products.filter(
+        (product) => product.id !== deletedProductId
+      );
+      state.products = updatedProducts;
     });
   },
 });
