@@ -7,7 +7,7 @@ import { BiLogOut } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrClose } from "react-icons/gr";
 import { BiSearchAlt2 } from "react-icons/bi";
-const Navbar = ({onSearch}) => {
+const Navbar = ({ onSearch }) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -89,7 +89,7 @@ const Navbar = ({onSearch}) => {
               <RxAvatar size={30} /> Hello, {user}
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-16 mt-32 w-32 bg-white rounded-md shadow-md z-10">
+              <div className="absolute right-16 mt-32 w-32 bg-white rounded-md shadow-md z-20">
                 <ul className="py-2 text-base text-black gap-y-2 flex flex-col">
                   <li
                     className="font-semibold flex ml-5 gap-x-2 items-center cursor-pointer"

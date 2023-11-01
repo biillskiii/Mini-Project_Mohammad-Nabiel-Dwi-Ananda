@@ -75,15 +75,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar cartCount={cart.length} handleOpen={() => setIsOpen(true)}  onSearch={handleSearch} />
-      {isOpen && (
-        <Cart
-          product={cart}
-          deleteItem={handleDelete}
-          increment={handleIncrement}
-          decrement={handleDecrement}
-        />
-      )}
+      <Navbar cartCount={cart.length} onSearch={handleSearch}/>
       <div className="mt-10 z-10">
         <Category
           onSelectCategory={handleCategorySelect}
