@@ -11,8 +11,11 @@ import { ImSpinner6 } from "react-icons/im";
 import { BiLogOut } from "react-icons/bi";
 import { PiSidebarSimpleFill } from "react-icons/pi";
 import { AiFillCloseCircle } from "react-icons/ai";
-const Sidebar = ({ onLogout, isOpen }) => {
+const Sidebar = () => {
   const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/login")
+  }
   return (
     <div
       className={`fixed h-screen w-48 bg-black text-white z-10 ${
@@ -28,7 +31,7 @@ const Sidebar = ({ onLogout, isOpen }) => {
         </button>
         <button
           className="w-full text-left mt-5 p-2 bg-red-600 flex items-center gap-x-1 rounded-md"
-          onClick={onLogout}
+          onClick={handleLogout}
         >
           <BiLogOut size={20} /> Logout
         </button>
