@@ -11,7 +11,7 @@ import { ImSpinner6 } from "react-icons/im";
 import { BiLogOut } from "react-icons/bi";
 import { PiSidebarSimpleFill } from "react-icons/pi";
 import { AiFillCloseCircle } from "react-icons/ai";
-const Sidebar = () => {
+const Sidebar = (isOpen) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     navigate("/login")
