@@ -36,6 +36,7 @@ const Invoice = () => {
           <thead>
             <tr>
               <th className="text-left font-bold text-gray-700">Product</th>
+              <th className="text-right font-bold mr-3 text-gray-700">Jumlah</th>
               <th className="text-right font-bold text-gray-700">Harga</th>
             </tr>
           </thead>
@@ -43,6 +44,7 @@ const Invoice = () => {
             {itemsToCheckout.map((item) => (
               <tr key={item.id}>
                 <td className="text-left text-gray-700">{item.title}</td>
+                <td className="text-right mr-3 text-gray-700">{item.qty}</td>
                 <td className="text-right text-gray-700">
                   ${(item.qty * item.price).toFixed(2)}
                 </td>
