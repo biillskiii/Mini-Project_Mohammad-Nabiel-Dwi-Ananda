@@ -87,7 +87,14 @@ export default function Home() {
           decrement={handleDecrement}
         />
       )}
-      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-14">
+      <div className="mt-10 z-10">
+        <Category
+          onSelectCategory={handleCategorySelect}
+          onSort={handleSort}
+          onSearch={handleSearch}
+        />
+      </div>
+      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-14 my-10">
         <img src={CarrouselImage} className="w-full" alt="Carousel" />
         <div className="absolute w-full flex flex-col justify-center text-white  px-4 lg:ml-32">
           <h1 className="text-xl font-bold text-left mt-5  lg:text-start lg:text-4xl lg:mt-10">
@@ -102,13 +109,6 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-10 z-10">
-        <Category
-          onSelectCategory={handleCategorySelect}
-          onSort={handleSort}
-          onSearch={handleSearch}
-        />
-      </div>
 
       <div className="w-full h-40 flex flex-wrap justify-center gap-x-5 gap-y-10 mt-5">
         {isLoading ? (

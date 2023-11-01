@@ -7,13 +7,13 @@ import {
   AiOutlineSortDescending,
 } from "react-icons/ai";
 import { BiSolidCategory } from "react-icons/bi";
-import { BiSearchAlt2 } from "react-icons/bi";
+
 
 const Category = ({ onSelectCategory, onSort, onSearch }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+
   const dropdownCategoryRef = useRef(null);
   const dropdownFilterRef = useRef(null);
 
@@ -87,29 +87,11 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
     onSort("ratingDesc");
   };
 
-  const handleSearch = () => {
-    onSearch(searchTerm);
-  };
 
   return (
-    <div className="w-6/6 lg:w-11/12 h-14 bg-white flex flex-row justify-start items-center mx-auto rounded-md shadow-md z-20">
-      <div className="flex flex-row gap-x-5 lg:gap-x-5">
-        <div className="relative">
-          <input
-            className="border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none lg:w-60 ml-5 w-40"
-            type="text"
-            placeholder="Cari barang..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <BiSearchAlt2
-            size={30}
-            className="absolute top-2 right-2 text-gray-400 cursor-pointer"
-            onClick={handleSearch}
-          />
-        </div>
-      </div>
-      <div className="flex ms-auto mr-5">
+    <div className="w-6/6 lg:w-56 bg-white flex flex-row justify-start ms-auto lg:mr-20 rounded-md">
+
+      <div className="flex ms-auto">
         <div
           className="ml-8 flex items-center gap-x-2 ms-auto mr-5 cursor-pointer "
           onClick={dropdownCategory}

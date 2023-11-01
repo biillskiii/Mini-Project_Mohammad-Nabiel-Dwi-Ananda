@@ -6,12 +6,13 @@ import { RxAvatar } from "react-icons/rx";
 import { BiLogOut } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrClose } from "react-icons/gr";
+import { BiSearchAlt2 } from "react-icons/bi";
 const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const openLogoutModal = () => {
     setIsLogoutModalOpen(true);
   };
@@ -38,6 +39,9 @@ const Navbar = () => {
     setIsLoggedIn(false);
     navigate("/login");
   };
+  const handleSearch = () => {
+    onSearch(searchTerm);
+  };
 
   const username = localStorage.getItem("userCredentials");
   const parsedUser = JSON.parse(username);
@@ -50,7 +54,23 @@ const Navbar = () => {
           <button onClick={() => navigate("/")}>GadgetStore</button>
         </p>
       </div>
-      <div className="hidden lg:flex items-center">
+      <div className="hidden lg:flex items-center gap-x-4">
+        <div className="flex flex-row gap-x-5 lg:gap-x-5">
+          <div className="relative">
+            <input
+              className="border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none lg:w-60 ml-5 w-40"
+              type="text"
+              placeholder="Cari barang..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <BiSearchAlt2
+              size={30}
+              className="absolute top-2 right-2 text-gray-400 cursor-pointer"
+              onClick={handleSearch}
+            />
+          </div>
+        </div>
         <p className="font-semibold text-sm flex items-center">
           <button onClick={() => navigate("/chatbot")} className="flex gap-x-2">
             <RiCustomerServiceFill size={20} />
@@ -58,7 +78,7 @@ const Navbar = () => {
           </button>
         </p>
         {isLoggedIn && (
-          <div className="flex items-center ml-5 gap-x-5 mr-14">
+          <div className="flex items-center gap-x-5 mr-14">
             <a href="">
               <AiOutlineShoppingCart size={20} onClick={handleCart} />
             </a>
@@ -97,14 +117,14 @@ const Navbar = () => {
           className="text-2xl text-gray-600 focus:outline-none"
         >
           {isDropdownOpen ? (
-           <GrClose size={25} />
+            <GrClose size={25} />
           ) : (
-           <RxHamburgerMenu  size={25}/>
+            <RxHamburgerMenu size={25} />
           )}
         </button>
       </div>
       {isDropdownOpen && (
-        <div className="lg:hidden absolute w-full bg-white top-16 right-0 shadow-md z-10">
+        <div className="lg:hidden absolute w-full bg-white top-16 right-0 shadow-md z-20">
           <ul className="py-2 text-base text-black">
             <li
               className="px-4 py-2 flex items-center cursor-pointer"
@@ -113,6 +133,22 @@ const Navbar = () => {
               <RiCustomerServiceFill size={20} className="mr-2" />
               Contact Us
             </li>
+            <div className=" flex flex-row gap-x-5 lg:gap-x-5">
+              <div className="relative w-11/12">
+                <input
+                  className="w-11/12 mx-10 border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none lg:w-60"
+                  type="text"
+                  placeholder="Cari barang..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <BiSearchAlt2
+                  size={30}
+                  className="absolute top-2 right-2 text-gray-400 cursor-pointer"
+                  onClick={handleSearch}
+                />
+              </div>
+            </div>
             {isLoggedIn ? (
               <>
                 <li

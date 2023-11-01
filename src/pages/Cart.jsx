@@ -174,13 +174,13 @@ function Cart() {
                   <span className="font-semibold">${total.toFixed(2)}</span>
                 </div>
                 <button
-                  className="bg-blue-500 text-white py-2 px-4 rounded-lg mb-1 w-full"
+                  className="bg-green-500 text-white py-2 px-4 rounded-lg mb-1 w-full"
                   onClick={handleSelectAll}
                 >
                   {selectAllClicked ? "Unselect all" : "Select all"}
                 </button>
                 <button
-                  className={`bg-blue-500 text-white py-2 px-4 rounded-lg w-full ${
+                  className={`bg-green-500 text-white py-2 px-4 rounded-lg w-full ${
                     !isAnyProductSelected
                       ? "opacity-50 pointer-events-none"
                       : ""
