@@ -7,7 +7,7 @@ import { BiLogOut } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrClose } from "react-icons/gr";
 import { BiSearchAlt2 } from "react-icons/bi";
-const Navbar = () => {
+const Navbar = ({onSearch}) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -67,7 +67,7 @@ const Navbar = () => {
             <BiSearchAlt2
               size={30}
               className="absolute top-2 right-2 text-gray-400 cursor-pointer"
-              onClick={handleSearch}
+              onClick={() => onSearch(searchTerm)}
             />
           </div>
         </div>

@@ -78,7 +78,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar cartCount={cart.length} handleOpen={() => setIsOpen(true)} />
+      <Navbar cartCount={cart.length} handleOpen={() => setIsOpen(true)}  onSearch={handleSearch} />
       {isOpen && (
         <Cart
           product={cart}
@@ -91,7 +91,6 @@ export default function Home() {
         <Category
           onSelectCategory={handleCategorySelect}
           onSort={handleSort}
-          onSearch={handleSearch}
         />
       </div>
       <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-14 my-10">
