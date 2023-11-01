@@ -67,9 +67,6 @@ export default function Home() {
     searchResults.length > 0 ? searchResults : newProduct
   );
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-  };
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "user";

@@ -14,8 +14,9 @@ import { AiFillCloseCircle } from "react-icons/ai";
 const Sidebar = ({ isOpen }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    navigate("/login")
-  }
+    localStorage.setItem("isLoggedIn", "false");
+    navigate("/login");
+  };
   return (
     <div
       className={`fixed h-screen w-48 bg-black text-white z-10 ${
@@ -24,11 +25,12 @@ const Sidebar = ({ isOpen }) => {
     >
       <div className="py-4 px-2 mt-10">
         <button
-          onClick={navigate("/admin/dashboard")}
+          onClick={() => navigate("/admin/dashboard")} // Tambahkan fungsi panah di sini
           className="w-full p-2 bg-green-600 text-left rounded-md"
         >
           Dashboard
         </button>
+
         <button
           className="w-full text-left mt-5 p-2 bg-red-600 flex items-center gap-x-1 rounded-md"
           onClick={handleLogout}
@@ -205,10 +207,7 @@ const Admin = () => {
         <PiSidebarSimpleFill size={30} color="black" />
       </button>
 
-      <Sidebar
-        username={username}
-        isOpen={isSidebarOpen}
-      />
+      <Sidebar username={username} isOpen={isSidebarOpen} />
       <main className="p-4">
         <div className="flex justify-between items-center">
           <p className="ml-10 font-bold text-xl">Hello, {username}</p>

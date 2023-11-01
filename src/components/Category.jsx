@@ -167,25 +167,25 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
               </button>
               <button
                 className="font-semibold flex items-center gap-x-2 ml-3"
-                onClick={handleSortPriceAsc}
+                onClick={handleSortPriceDesc}
               >
                 <BsSortNumericDown size={20} /> Harga Termahal
               </button>
               <button
                 className="font-semibold flex items-center gap-x-2 ml-3"
-                onClick={handleSortPriceDesc}
+                onClick={handleSortPriceAsc}
               >
                 <BsSortNumericUp size={20} /> Harga Termurah
               </button>
               <button
                 className="font-semibold flex items-center gap-x-2 ml-3"
-                onClick={handleSortRatingAsc}
+                onClick={handleSortRatingDesc}
               >
                 <BsSortNumericDown size={20} /> Rating Terbesar
               </button>
               <button
                 className="font-semibold flex items-center gap-x-2 ml-3"
-                onClick={handleSortRatingDesc}
+                onClick={handleSortRatingAsc}
               >
                 <BsSortNumericUp size={20} /> Rating Terkecil
               </button>
