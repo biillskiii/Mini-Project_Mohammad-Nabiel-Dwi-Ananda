@@ -43,7 +43,7 @@ const Card = ({ id, title, rating, category, price, images, isLoggedIn }) => {
   };
 
   return (
-    <div className="w-80 h-auto bg-white rounded-md shadow-md grid grid-cols-1 gap-y-1 p-4">
+    <div className="w-80 h-auto bg-white rounded-md shadow-2xl grid grid-cols-1 gap-y-1 p-4">
       {loading && (
         <div className="w-full h-60 bg-gray-600 flex justify-center items-center animate-pulse">
           <FaSpinner size={20} className="animate-spin" />

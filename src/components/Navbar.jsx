@@ -50,15 +50,15 @@ const Navbar = ({ onSearch }) => {
   return (
     <div className="w-full bg-white shadow-md flex justify-between items-center p-4">
       <div>
-        <p className="font-bold text-green-600 text-xl lg:ml-5">
+        <p className="w-24 font-bold text-green-600 text-sm lg:ml-12 lg:text-2xl">
           <button onClick={() => navigate("/")}>GadgetStore</button>
         </p>
       </div>
       <div className="hidden lg:flex items-center gap-x-4">
-        <div className="flex flex-row gap-x-5 lg:gap-x-5">
+        <div className="flex flex-row gap-x-5 items-center">
           <div className="relative">
             <input
-              className="border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none lg:w-60 ml-5 w-40"
+              className="border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none mx-auto"
               type="text"
               placeholder="Cari barang..."
               value={searchTerm}
@@ -71,12 +71,13 @@ const Navbar = ({ onSearch }) => {
             />
           </div>
         </div>
-        <p className="font-semibold text-sm flex items-center">
+        <p className="flex-1 font-semibold text-sm flex items-center">
           <button onClick={() => navigate("/chatbot")} className="flex gap-x-2">
             <RiCustomerServiceFill size={20} />
             Contact Us
           </button>
         </p>
+
         {isLoggedIn && (
           <div className="flex items-center gap-x-5 mr-14">
             <a href="">
@@ -105,13 +106,42 @@ const Navbar = ({ onSearch }) => {
         {!isLoggedIn && (
           <button
             onClick={() => navigate("/login")}
-            className="flex gap-x-2 border-2 px-3 py-2 border-black rounded-md ml-5 mr-12 font-semibold"
+            className="flex border-2 px-3 py-2 border-black rounded-md mr-12 font-semibold"
           >
             Login
           </button>
         )}
       </div>
       <div className="lg:hidden flex items-center">
+        <div className="flex flex-row  lg:gap-x-5">
+          <div className="relative w-full">
+            <div className="relative flex">
+              <input
+                className="w-full border-2 border-slate-50 rounded-l-md px-3 py-2 focus:outline-none"
+                type="text"
+                placeholder="Cari barang..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="absolute top-0 right-0 bottom-0 flex items-center pr-3 pointer-events-none">
+                <BiSearchAlt2
+                  size={30}
+                  className="text-gray-400 cursor-pointer"
+                  onClick={handleSearch}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        {isLoggedIn && (
+          <li
+            className="px-4 py-2 flex items-center cursor-pointer"
+            onClick={handleCart}
+          >
+            <AiOutlineShoppingCart size={20} className="mr-2" />
+            Cart
+          </li>
+        )}
         <button
           onClick={toggleDropdown}
           className="text-2xl text-gray-600 focus:outline-none"
@@ -133,31 +163,9 @@ const Navbar = ({ onSearch }) => {
               <RiCustomerServiceFill size={20} className="mr-2" />
               Contact Us
             </li>
-            <div className=" flex flex-row gap-x-5 lg:gap-x-5">
-              <div className="relative w-11/12">
-                <input
-                  className="w-11/12 mx-10 border-2 border-slate-50 rounded-md px-3 py-2 focus:outline-none lg:w-60"
-                  type="text"
-                  placeholder="Cari barang..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <BiSearchAlt2
-                  size={30}
-                  className="absolute top-2 right-2 text-gray-400 cursor-pointer"
-                  onClick={handleSearch}
-                />
-              </div>
-            </div>
+
             {isLoggedIn ? (
               <>
-                <li
-                  className="px-4 py-2 flex items-center cursor-pointer"
-                  onClick={handleCart}
-                >
-                  <AiOutlineShoppingCart size={20} className="mr-2" />
-                  Cart
-                </li>
                 <li className="px-4 py-2 font-semibold flex items-center gap-x-2 cursor-pointer">
                   <RxAvatar size={20} /> Hello, {user}
                 </li>

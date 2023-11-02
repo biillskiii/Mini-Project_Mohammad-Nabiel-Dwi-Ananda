@@ -89,7 +89,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
 
 
   return (
-    <div className="w-6/6 lg:w-56 bg-white flex flex-row justify-start ms-auto lg:mr-20 rounded-md">
+    <div className="w-7/12 lg:w-56  bg-white flex flex-row justify-start ms-auto mr-4 lg:mr-20 rounded-md">
 
       <div className="flex ms-auto">
         <div
@@ -101,7 +101,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
         {isCategoryOpen && (
           <div
             ref={dropdownCategoryRef}
-            className="absolute right-32 lg:mr-20 mt-14 w-32 flex flex-col bg-white rounded-md shadow-md"
+            className="absolute right-24 lg:right-32 lg:mt-14 lg:mr-20 mt- w-32 flex flex-col bg-white rounded-md shadow-md"
           >
             <button
               className={`px-2 py-1 rounded-md text-sm font-semibold flex text-center  ${
@@ -142,7 +142,7 @@ const Category = ({ onSelectCategory, onSort, onSearch }) => {
           </div>
         )}
         <div
-          className="mr-5 flex flex-row gap-x-2 items-center cursor-pointer"
+          className=" flex flex-row gap-x-2 items-center cursor-pointer"
           onClick={toggleDropdown}
         >
           <LuFilter size={20} /> Filter

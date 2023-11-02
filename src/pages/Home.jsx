@@ -25,7 +25,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getProducts()).then(() => {
-      setIsLoading(false); 
+      setIsLoading(false);
     });
   }, [dispatch]);
 
@@ -67,7 +67,6 @@ export default function Home() {
     searchResults.length > 0 ? searchResults : newProduct
   );
 
-
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "user";
     setIsLoggedIn(loggedIn);
@@ -75,14 +74,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar cartCount={cart.length} onSearch={handleSearch}/>
-      <div className="mt-10 z-10">
-        <Category
-          onSelectCategory={handleCategorySelect}
-          onSort={handleSort}
-        />
-      </div>
-      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-10 relative lg:ml-14 my-10">
+      <Navbar cartCount={cart.length} onSearch={handleSearch} />
+      <div className="rounded-xl w-11/12 flex flex-col justify-center items-center ml-5 mt-5 relative lg:ml-14 my-2">
         <img src={CarrouselImage} className="w-full" alt="Carousel" />
         <div className="absolute w-full flex flex-col justify-center text-white  px-4 lg:ml-32">
           <h1 className="text-xl font-bold text-left mt-5  lg:text-start lg:text-4xl lg:mt-10">
@@ -97,6 +90,9 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="my-5 z-10">
+        <Category onSelectCategory={handleCategorySelect} onSort={handleSort} />
+      </div>
 
       <div className="w-full h-40 flex flex-wrap justify-center gap-x-5 gap-y-10 mt-5">
         {isLoading ? (
