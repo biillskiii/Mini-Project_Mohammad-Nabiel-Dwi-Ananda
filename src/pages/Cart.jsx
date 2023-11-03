@@ -168,17 +168,19 @@ function Cart() {
             <div className="md:w-1/4">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-lg font-semibold mb-4">Summary</h2>
+                  <div className="flex justify-between mb-2 gap-x-20">
+                    <span className="font-semibold">Total</span>
+                    <span className="font-semibold">${total.toFixed(2)}</span>
+                  </div>
 
-                <div className="flex justify-between mb-2">
-                  <span className="font-semibold">Total</span>
-                  <span className="font-semibold">${total.toFixed(2)}</span>
-                </div>
-                <button
-                  className="bg-green-500 text-white py-2 px-4 rounded-lg mb-1 w-full"
-                  onClick={handleSelectAll}
-                >
-                  {selectAllClicked ? "Unselect all" : "Select all"}
-                </button>
+                  <div className="flex gap-x-3 mb-3 items-center ms-auto">
+                    <input
+                      type="checkbox"
+                      className="bg-green-500 text-white py-2 px-4 rounded-lg "
+                      onClick={handleSelectAll}
+                    />
+                    <p>Select all</p>
+                  </div>
                 <button
                   className={`bg-green-500 text-white py-2 px-4 rounded-lg w-full ${
                     !isAnyProductSelected
